@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department of Mathematics, NCUE </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6fa;
+    --bg-2:#ffffff;
+    --panel:#ffffff;
+    --panel-edge:#dde4ee;
+    --navy:#1c3f66;
+    --blue:#2f6fb0;
+    --blue-bright:#3f8fe0;
+    --blue-dim:#8fadd1;
+    --blue-tint:#eaf1fa;
+    --violet:#7c5cbf;
+    --violet-bright:#9575cd;
+    --crimson:#c0392b;
+    --crimson-bright:#e0524a;
+    --ink:#1e2733;
+    --ink-dim:#67717f;
+    --muted:#9aa5b1;
+    --track:#e7ebf1;
+    --shadow:rgba(30,45,70,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:transparent;}
+  body{
+    font-family:'Noto Serif TC', serif;
+    color:var(--ink);
+    background:
+      radial-gradient(ellipse at 50% -10%, #e7eef9 0%, transparent 55%),
+      var(--bg);
+    min-height:100vh;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:880px;margin:0 auto;}
+
+  /* ---------- Header ---------- */
+  .banner{
+    position:relative;
+    text-align:center;
+    padding:26px 20px 22px;
+    margin-bottom:22px;
+    background:
+      linear-gradient(180deg, rgba(47,111,176,0.06), rgba(47,111,176,0) 60%),
+      var(--panel);
+    border:1px solid var(--panel-edge);
+    border-radius:6px;
+    box-shadow:0 1px 3px var(--shadow);
+  }
+  .banner::before, .banner::after{
+    content:"";
+    position:absolute; top:8px; bottom:8px; width:1px;
+    background:linear-gradient(180deg, transparent, var(--blue-dim), transparent);
+  }
+  .banner::before{left:8px;} .banner::after{right:8px;}
+  .eyebrow{
+    font-family:'Cinzel', serif;
+    letter-spacing:0.35em;
+    font-size:11px;
+    color:var(--blue-dim);
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Noto Serif TC', serif;
+    font-weight:700;
+    font-size:clamp(26px,5vw,38px);
+    margin:0 0 6px;
+    color:var(--navy);
+    letter-spacing:0.06em;
+  }
+  .sub{
+    font-size:13px;
+    color:var(--ink-dim);
+    letter-spacing:0.08em;
+  }
+
+  /* ---------- Points summary bar ---------- */
+  .summary{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; flex-wrap:wrap;
+    background:var(--panel);
+    border:1px solid var(--panel-edge);
+    padding:12px 18px;
+    margin-bottom:26px;
+    border-radius:6px;
+    box-shadow:0 1px 3px var(--shadow);
+  }
+  .summary .total{
+    font-family:'Cinzel', serif;
+    font-size:14px; letter-spacing:0.08em; color:var(--ink-dim);
+  }
+  .summary .total b{
+    color:var(--blue-bright); font-size:20px; margin:0 4px;
+  }
+  .actions{display:flex; gap:8px;}
+  .btn{
+    font-family:'Cinzel', serif;
+    font-size:11px; letter-spacing:0.12em;
+    background:var(--bg-2);
+    color:var(--ink-dim);
+    border:1px solid var(--panel-edge);
+    padding:8px 14px;
+    cursor:pointer;
+    border-radius:4px;
+    transition:border-color .15s, color .15s, background .15s;
+  }
+  .btn:hover{border-color:var(--blue-dim); color:var(--blue); background:var(--blue-tint);}
+  .btn.danger:hover{border-color:var(--crimson-bright); color:var(--crimson);}
+
+  /* ---------- Tier tablet ---------- */
+  .tier{
+    background:var(--panel);
+    border:1px solid var(--panel-edge);
+    border-radius:6px;
+    margin-bottom:22px;
+    overflow:hidden;
+    box-shadow:0 1px 3px var(--shadow);
+  }
+  .tier-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding:14px 20px;
+    background:linear-gradient(90deg, rgba(47,111,176,0.07), transparent 70%);
+    border-bottom:1px solid var(--panel-edge);
+  }
+  .tier-head .name{
+    font-family:'Cinzel', serif;
+    font-size:12px; letter-spacing:0.28em; color:var(--blue-dim);
+    text-transform:uppercase;
+  }
+  .tier-head .job{
+    font-size:19px; font-weight:600; color:var(--ink); margin-left:10px;
+  }
+  .tier-head .pool{
+    font-family:'Cinzel', serif;
+    font-size:12px; color:var(--ink-dim); letter-spacing:0.06em;
+    white-space:nowrap;
+  }
+  .tier-head .pool b{color:var(--blue-bright); font-size:15px;}
+  .tier-head .pool.zero b{color:var(--crimson-bright);}
+
+  .group-label{
+    font-size:12px; color:var(--muted); letter-spacing:0.15em;
+    padding:12px 20px 0;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap:10px;
+    padding:14px 18px 18px;
+  }
+
+  /* ---------- Skill node ---------- */
+  .node{
+    position:relative;
+    background:var(--bg-2);
+    border:1px solid var(--panel-edge);
+    border-radius:4px;
+    padding:10px 10px 9px;
+    cursor:pointer;
+    user-select:none;
+    -webkit-user-select:none;
+    transition:border-color .15s, transform .1s, box-shadow .15s;
+  }
+  .node:hover{border-color:var(--blue-dim); transform:translateY(-1px);}
+  .node.filled{
+    border-color:var(--blue);
+    box-shadow:0 0 0 1px rgba(47,111,176,0.18) inset;
+  }
+  .node.maxed{
+    border-color:var(--blue-bright);
+    box-shadow:0 0 0 1px rgba(63,143,224,0.3) inset, 0 0 10px rgba(63,143,224,0.12);
+  }
+  .node.locked{
+    cursor:not-allowed;
+    border-style:dashed;
+    border-color:var(--muted);
+    background:var(--bg-2);
+  }
+  .node.locked:hover{border-color:var(--crimson-bright); transform:none;}
+  .lock{font-size:11px; opacity:0.8;}
+  .req-note{
+    margin-top:8px;
+    padding-top:7px;
+    border-top:1px dashed var(--panel-edge);
+  }
+  .req-note-title{
+    font-size:10px; letter-spacing:0.08em; color:var(--ink-dim);
+    margin-bottom:4px;
+  }
+  .req-item{
+    display:flex; align-items:center; gap:5px;
+    font-size:11.5px; line-height:1.6;
+  }
+  .req-item .mark{
+    font-size:10px; width:13px; flex:none; text-align:center;
+  }
+  .req-item.met{color:var(--ink);}
+  .req-item.met .mark{color:var(--blue-bright);}
+  .req-item.unmet{color:var(--ink-dim);}
+  .req-item.unmet .mark{color:var(--crimson-bright);}
+
+  /* profession-required / elective node highlight (layered on top of existing state) */
+  .node.prof-required{
+    border-color:var(--blue);
+    box-shadow:0 0 0 1px rgba(47,111,176,0.35) inset, 0 0 10px rgba(47,111,176,0.16);
+  }
+  .node.prof-elective{
+    border-color:var(--violet);
+    box-shadow:0 0 0 1px rgba(124,92,191,0.35) inset, 0 0 10px rgba(124,92,191,0.16);
+  }
+
+  /* ---------- System-required (系必修) bar ---------- */
+  .required-panel{
+    background:var(--panel);
+    border:1px solid var(--panel-edge);
+    border-radius:6px;
+    padding:14px 18px;
+    margin-bottom:20px;
+    box-shadow:0 1px 3px var(--shadow);
+  }
+  .required-panel.unlocked{
+    border-color:var(--blue-bright);
+    box-shadow:0 0 0 1px rgba(63,143,224,0.3) inset, 0 0 12px rgba(63,143,224,0.14);
+  }
+  .required-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:9px;
+  }
+  .required-title{
+    font-family:'Cinzel', serif;
+    font-size:12px; letter-spacing:0.2em; color:var(--blue-dim);
+    text-transform:uppercase;
+  }
+  .required-count{font-size:13px; color:var(--ink-dim);}
+  .required-count b{color:var(--ink); font-weight:600;}
+  .required-panel.unlocked .required-count b{color:var(--blue-bright);}
+  .required-bar-track{height:6px; background:var(--track); border-radius:3px; overflow:hidden;}
+  .required-bar-track i{
+    display:block; height:100%;
+    background:linear-gradient(90deg, var(--crimson), var(--crimson-bright));
+  }
+  .required-panel.unlocked .required-bar-track i{
+    background:linear-gradient(90deg, var(--blue), var(--blue-bright));
+  }
+
+  /* ---------- Profession cards ---------- */
+  .professions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:12px;
+    margin-bottom:26px;
+  }
+  .prof-card{
+    background:var(--panel);
+    border:1px solid var(--panel-edge);
+    border-radius:6px;
+    padding:14px 16px;
+    cursor:pointer;
+    transition:border-color .15s, box-shadow .15s, transform .1s;
+    box-shadow:0 1px 3px var(--shadow);
+  }
+  .prof-card:hover{border-color:var(--blue-dim); transform:translateY(-1px);}
+  .prof-card.selected{border-color:var(--blue); box-shadow:0 0 0 1px rgba(47,111,176,0.22) inset;}
+  .prof-card.unlocked{
+    border-color:var(--blue-bright);
+    box-shadow:0 0 0 1px rgba(63,143,224,0.32) inset, 0 0 12px rgba(63,143,224,0.14);
+  }
+  .prof-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .prof-name{font-size:15.5px; font-weight:600; color:var(--ink);}
+  .prof-card.unlocked .prof-name{color:var(--blue);}
+  .prof-badge{
+    font-family:'Cinzel', serif;
+    font-size:10px; letter-spacing:0.1em;
+    color:#ffffff; background:var(--blue-bright);
+    padding:2px 7px; border-radius:3px;
+  }
+  .prof-rule{margin-top:8px;}
+  .prof-rule-label{
+    display:flex; justify-content:space-between;
+    font-size:11px; color:var(--ink-dim); margin-bottom:4px;
+  }
+  .prof-rule-label b{color:var(--ink); font-weight:600;}
+  .prof-rule-label.met b{color:var(--blue-bright);}
+  .prof-bar{height:5px; background:var(--track); border-radius:3px; overflow:hidden;}
+  .prof-bar i{display:block; height:100%; background:linear-gradient(90deg, var(--blue), var(--blue-bright));}
+  .prof-rule.required .prof-bar i{background:linear-gradient(90deg, var(--blue), var(--blue-bright));}
+  .prof-rule.elective .prof-bar i{background:linear-gradient(90deg, var(--violet), var(--violet-bright));}
+  .node-top{display:flex; justify-content:space-between; align-items:flex-start; gap:6px;}
+  .node-name{font-size:13.5px; line-height:1.35; color:var(--ink); font-weight:500;}
+  .node.maxed .node-name{color:var(--blue);}
+  .node-lv{
+    font-family:'Cinzel', serif;
+    font-size:11px; color:var(--ink-dim);
+    white-space:nowrap; padding-top:1px;
+  }
+  .node.filled .node-lv{color:var(--blue);}
+  .bar{
+    margin-top:8px;
+    height:4px;
+    background:var(--track);
+    border-radius:2px;
+    overflow:hidden;
+    display:flex;
+  }
+  .bar i{
+    display:block; flex:1; margin-right:1px;
+    background:var(--track);
+  }
+  .bar i:last-child{margin-right:0;}
+  .bar i.on{background:linear-gradient(90deg, var(--blue), var(--blue-bright));}
+
+  .hint{
+    text-align:center; font-size:11.5px; color:var(--muted);
+    letter-spacing:0.08em; margin-top:2px; margin-bottom:20px;
+  }
+
+  footer{
+    text-align:center; margin-top:30px; font-size:11px; color:var(--muted);
+    letter-spacing:0.1em;
+  }
+
+  @media (max-width:480px){
+    .tier-head{flex-wrap:wrap; gap:4px;}
+    .summary{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="banner">
+    <div class="eyebrow">National Changhua University of Education</div>
+    <h1>Department of Mathematics skills simulator</h1>
+    <div class="sub">Freshman → Sophomore → Junior → Senior</div>
+  </div>
+
+  <div class="summary">
+    <div class="total">已累計點數 <b id="totalLeft">0</b></div>
+    <div class="actions">
+      <button class="btn" id="fillBtn">全點滿</button>
+      <button class="btn danger" id="resetBtn">清零</button>
+    </div>
+  </div>
+
+  <div id="requiredBar"></div>
+
+  <div id="professions"></div>
+
+  <div id="tiers"></div>
+
+  <div class="hint">左鍵點擊課程增加已修時數 · 右鍵點擊減少 · 點擊上方職業卡片可標記所需課程</div>
+
+  <footer>仿作介面 · 資料整理自 RO 技能配點頁面</footer>
+</div>
+
+<script>
+const DATA = [
+  {
+    id:'Y1S1', label:'大一上', job:'Freshman', pool:50,
+    groups:[{ name:null, skills:[['生命探索發展與實踐', 2],
+ ['微積分(一)', 4,],
+ ['微積分探究(一)', 1],
+ ['數學導論', 3],
+ ['線性代數(一)', 3],
+ ['統計科學導論', 3],
+ ['計算機概論', 3]]}]
+  },
+
+  {
+    id:'Y1S2', label:'大一下', job:'Freshman', pool:50,
+    groups:[{ name:null, skills:[['人工智慧及其應用', 2, []],
+ ['微積分(二)', 4, []],
+ ['數論', 3, []],
+ ['線性代數(二)', 3, []],
+ ['程式設計', 3, []]]}]
+  },
+
+  {
+    id:'Y2S1', label:'大二上', job:'Sophmore', pool:70,
+    groups:[{ name:'騎士',
+             skills:[['數學軟體應用', 3, []],
+                     ['離散數學', 3, []],
+                     ['高等微積分(一)', 4, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
+                     ['高等微積分探究(一)', 1, []],
+                     ['微分方程(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
+                     ['代數學(一)', 3, []]]
+            }]
+  },
+
+  {
+    id:'Y2S2', label:'大二下', job:'Sophmore', pool:70,
+    groups:[{  name:'騎士',
+             skills:[ ['高等微積分(二)', 4, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
+                      ['高等微積分探究(二)', 1, []],
+                      ['微分方程(二)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
+                      ['代數學(二)', 3, []],
+                      ['機率論', 3, [['微積分(一)', 4], ['微積分(二)', 4]]],
+                      ['資料結構', 3, [['計算機概論', 3], ['程式設計', 3]]],
+                      ['物件導向程式設計', 3, [['計算機概論', 3], ['程式設計', 3]]]
+                    ]
+            }]
+  },
+
+  {
+    id:'Y3S1', label:'大三上', job:'Junior', pool:70,
+    groups:[{ name:null, 
+            skills:[ ['數學科教材教法', 2, []], 
+                     ['數值分析(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3], ['程式設計', 3]]],
+                     ['複變數函數論(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['高等微積分(一)', 4], ['高等微積分(二)', 4]]], 
+                     ['組合學', 3, [['微積分(一)', 4], ['微積分(二)', 4]]], 
+                     ['代數學(三)', 3, [['代數學(一)', 3], ['代數學(二)', 3]]],
+                     ['統計學', 3, [['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]],
+                     ['計算機組織與結構', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]],
+                     ['作業系統', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]],
+                     ['電腦網路', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]]]
+            }]
+  },
+
+  {
+    id:'Y3S2', label:'大三下', job:'Junior', pool:70,
+    groups:[{ name:null, 
+            skills:[ ['數學科教學應用與實作', 2, []],
+                     ['微分幾何(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3], ['高等微積分(一)', 4], ['高等微積分(二)', 4], ['複變數函數論(一)', 3], ['微分方程(一)', 3]]],
+                     ['複變數函數論(二)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['高等微積分(一)', 4], ['高等微積分(二)', 4], ['拓樸學(一)', 3], ['代數學(一)', 3], ['代數學(二)', 3]]],
+                     ['拓樸學(一)', 3, []], 
+                     ['應用機率', 3, [['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]],
+                     ['幾何學(一)', 3, []],
+                     ['數理統計導論', 3, [['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
+                     ['應用統計(一)', 3, [['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
+                     ['演算法設計', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]], 
+                     ['資料庫', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]],
+                     ['數學模擬', 3, []],
+                     ['數值分析(二)', 3, []]]
+            }]
+  },
+
+  {
+    id:'Y4S1', label:'大四上', job:'Senior', pool:70,
+    groups:[{ name:null, 
+            skills:[['微分幾何(二)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3], ['高等微積分(一)', 4], ['高等微積分(二)', 4], ['複變數函數論(一)', 3], ['微分方程(一)', 3]]],
+                    ['中學數學課程(一)', 3, []],
+                    ['數學科教學實習(一)', 2, []], 
+                    ['隨機過程', 3, [['應用機率', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
+                    ['應用統計(二)', 3, [['應用統計(一)', 3], ['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
+                    ['資訊網路', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3], ['資料庫', 3]]], 
+                    ['拓樸學(二)', 3, []],
+                    ['偏微分方程(一)', 3, []],
+                    ['機器學習', 3, [['應用統計(一)', 3], ['應用統計(二)', 3], ['統計學', 3], ['機率論', 3], ['程式設計', 3]]],
+                    ['金融數學', 3, [['應用統計(一)', 3], ['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]],
+                    ['資料科學', 3, [['應用統計(一)', 3], ['應用統計(二)', 3], ['統計學', 3], ['機率論', 3], ['程式設計', 3]]],
+                    ['密碼學與資訊安全', 3, [['離散數學', 3], ['電腦網路', 3], ['作業系統', 3], ['程式設計', 3], ['資料結構', 3]]]]
+            }]
+  },
+
+  {
+    id:'Y4S2', label:'大四下', job:'Senior', pool:70,
+    groups:[{ name:null, 
+            skills:[ ['數學史', 3, []], 
+                     ['中學數學課程(二)', 3, []], 
+                     ['數學科教學實習(二)', 2, []], 
+                     ['人工智慧', 3, [['計算機概論', 3], ['線性代數(一)', 3], ['微積分(一)', 4], ['程式設計', 3], ['資料結構', 3], ['演算法設計', 3]]],
+                     ['資料探勘', 3, [['程式設計', 3], ['資料結構', 3], ['演算法設計', 3], ['資料庫', 3]]]]
+            }]
+  }
+];
+
+// ---------------------------------------------------------------
+// 職業系統：每個職業由一至多條「規則」組成，每條規則有自己的課程清單
+// 與達成門檻（學分）。全部規則都達成，該職業才算解鎖。
+// kind: 'required' (必修，藍框) | 'elective' (選修，紫框)
+// ---------------------------------------------------------------
+const PROFESSIONS = [
+  {
+    id: 'math_researcher', name: '數學研究家',
+    rules: [
+      { label: '必修', kind: 'required', min: 9,
+        courses: ['代數學(三)', '微分幾何(一)', '組合學'] },
+      { label: '選修', kind: 'elective', min: 12,
+        courses: ['數論', '微分方程(二)', '複變數函數論(二)', '拓樸學(一)',
+                  '數學史', '偏微分方程(一)', '拓樸學(二)', '微分幾何(二)'] },
+    ]
+  },
+  {
+    id: 'data_analyst', name: '資料分析家',
+    rules: [
+      { label: '必修', kind: 'required', min: 9,
+        courses: ['應用機率', '應用統計(一)', '數理統計導論'] },
+      { label: '選修1', kind: 'elective', min: 9,
+        courses: ['數值分析(一)', '應用統計(二)', '隨機過程', '機器學習', '金融數學'] },
+      { label: '選修2', kind: 'elective', min: 3,
+        courses: ['數學模擬', '數值分析(二)', '偏微分方程(一)', '資料庫', '資料科學'] },
+    ]
+  },
+  {
+    id: 'programmer', name: '程式創造家',
+    rules: [
+      { label: '必修', kind: 'required', min: 9,
+        courses: ['資料結構', '離散數學', '作業系統'] },
+      { label: '選修', kind: 'elective', min: 12,
+        courses: ['物件導向程式設計', '電腦網路', '計算機組織與結構', '演算法設計',
+                  '資料庫', '密碼學與資訊安全', '資料探勘', '人工智慧'] },
+    ]
+  },
+];
+
+// ---------------------------------------------------------------
+// 系必修：這份清單裡的課「每一門」都要修過（滑條點滿），不是學分加總。
+// 三個職業卡片的解鎖條件都會疊加這個條件。
+// ---------------------------------------------------------------
+const REQUIRED_COURSES = [
+  '微積分(一)', '線性代數(一)', '計算機概論',
+  '微積分(二)', '線性代數(二)', '程式設計',
+  '高等微積分(一)', '代數學(一)', '微分方程(一)',
+  '高等微積分(二)', '代數學(二)', '機率論',
+  '統計學', '複變數函數論(一)',
+];
+
+let selectedProfession = null; // profession id, or null
+const state = {};
+DATA.forEach(t => { state[t.id] = {}; t.groups.forEach(g => g.skills.forEach(([n]) => state[t.id][n]=0)); });
+
+// name -> tierId, for quick cross-tier lookup of any skill's current level
+const OWNER = {};
+DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n]) => { OWNER[n] = t.id; })));
+
+// name -> max level (= credit hours for this repurposed course-tracker)
+const MAXLEVEL = {};
+DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n, max]) => { MAXLEVEL[n] = max; })));
+
+// a course only counts as "completed" once its bar is fully filled
+function isCompleted(name){
+  return getLevel(name) >= (MAXLEVEL[name] || 0);
+}
+
+function ruleEarnedCredits(rule){
+  return rule.courses.reduce((sum, name) => sum + (isCompleted(name) ? (MAXLEVEL[name]||0) : 0), 0);
+}
+
+function ruleMet(rule){
+  return ruleEarnedCredits(rule) >= rule.min;
+}
+
+function requiredCompletedCredits(){
+  return REQUIRED_COURSES.reduce((sum, n) => sum + (isCompleted(n) ? (MAXLEVEL[n]||0) : 0), 0);
+}
+function requiredTotalCredits(){
+  return REQUIRED_COURSES.reduce((sum, n) => sum + (MAXLEVEL[n]||0), 0);
+}
+function requiredAllMet(){
+  return requiredCompletedCredits() === requiredTotalCredits();
+}
+
+function professionAchieved(prof){
+  return requiredAllMet() && prof.rules.every(ruleMet);
+}
+
+// name -> list of [dependentName, requiredLevel] that this skill unlocks for others
+// built automatically from each skill's own reqs list
+const DEPENDENTS = {};
+DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n,,reqs]) => {
+  (reqs||[]).forEach(([reqName, reqLevel]) => {
+    (DEPENDENTS[reqName] = DEPENDENTS[reqName] || []).push([n, reqLevel]);
+  });
+})));
+
+function getLevel(name){
+  const tierId = OWNER[name];
+  return tierId ? (state[tierId][name] || 0) : 0;
+}
+
+function reqsMet(reqs){
+  return (reqs||[]).every(([reqName, reqLevel]) => getLevel(reqName) >= reqLevel);
+}
+
+function reqsLabel(reqs){
+  return (reqs||[]).map(([reqName]) => reqName).join('、');
+}
+
+function reqsChecklistHtml(reqs){
+  return (reqs||[]).map(([reqName, reqLevel]) => {
+    const met = getLevel(reqName) >= reqLevel;
+    return `<div class="req-item ${met?'met':'unmet'}"><span class="mark">${met?'✓':'○'}</span><span>${reqName}</span></div>`;
+  }).join('');
+}
+
+// can we drop `name` below its current level without breaking something
+// that currently depends on it?
+function canDecrease(name){
+  const curLevel = getLevel(name);
+  const deps = DEPENDENTS[name] || [];
+  return deps.every(([depName, reqLevel]) => {
+    // if the dependent isn't invested at all, dropping below reqLevel is fine
+    if(getLevel(depName) === 0) return true;
+    // dependent has points: dropping below its required level would strand it
+    return curLevel - 1 >= reqLevel;
+  });
+}
+
+function tierUsed(tier){
+  return Object.values(state[tier.id]).reduce((a,b)=>a+b,0);
+}
+function tierPool(tier){ return tier.pool; }
+function totalPool(){ return DATA.reduce((a,t)=>a+t.pool,0); }
+function totalUsed(){ return DATA.reduce((a,t)=>a+tierUsed(t),0); }
+
+// which highlight (if any) a course should get for the currently selected profession
+function profHighlightFor(name){
+  if(!selectedProfession) return null;
+  const prof = PROFESSIONS.find(p => p.id === selectedProfession);
+  if(!prof) return null;
+  for(const rule of prof.rules){
+    if(rule.courses.includes(name)) return rule.kind; // 'required' | 'elective'
+  }
+  return null;
+}
+
+function renderProfessions(){
+  const root = document.getElementById('professions');
+  root.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'professions';
+
+  PROFESSIONS.forEach(prof => {
+    const achieved = professionAchieved(prof);
+    const card = document.createElement('div');
+    card.className = 'prof-card' + (selectedProfession===prof.id?' selected':'') + (achieved?' unlocked':'');
+
+    const rulesHtml = prof.rules.map(rule => {
+      const earned = ruleEarnedCredits(rule);
+      const met = earned >= rule.min;
+      const pct = Math.min(100, Math.round(earned / rule.min * 100));
+      return `
+        <div class="prof-rule ${rule.kind}">
+          <div class="prof-rule-label ${met?'met':''}">
+            <span>${rule.label}</span>
+            <b>${earned} / ${rule.min}</b>
+          </div>
+          <div class="prof-bar"><i style="width:${pct}%"></i></div>
+        </div>
+      `;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="prof-head">
+        <div class="prof-name">${prof.name}</div>
+        ${achieved ? '<div class="prof-badge">已解鎖</div>' : ''}
+      </div>
+      ${rulesHtml}
+    `;
+
+    card.addEventListener('click', () => {
+      selectedProfession = (selectedProfession === prof.id) ? null : prof.id;
+      renderAll();
+    });
+
+    wrap.appendChild(card);
+  });
+
+  root.appendChild(wrap);
+}
+
+function renderRequiredBar(){
+  const root = document.getElementById('requiredBar');
+  const done = requiredCompletedCredits();
+  const total = requiredTotalCredits();
+  const met = done === total;
+  const pct = Math.round(done / total * 100);
+  root.innerHTML = `
+    <div class="required-panel ${met?'unlocked':''}">
+      <div class="required-head">
+        <div class="required-title">系必修</div>
+        <div class="required-count"><b>${done}</b> / ${total} 學分 ${met?'（已修畢）':''}</div>
+      </div>
+      <div class="required-bar-track"><i style="width:${pct}%"></i></div>
+    </div>
+  `;
+}
+
+function renderAll(){
+  renderRequiredBar();
+  renderProfessions();
+
+  const root = document.getElementById('tiers');
+  root.innerHTML = '';
+  DATA.forEach(tier => {
+    const used = tierUsed(tier);
+    const tierEl = document.createElement('div');
+    tierEl.className = 'tier';
+
+    const head = document.createElement('div');
+    head.className = 'tier-head';
+    head.innerHTML = `
+      <div><span class="name">${tier.label}</span><span class="job">${tier.job}</span></div>
+      <div class="pool">已修 <b>${used}</b></div>
+    `;
+    tierEl.appendChild(head);
+
+    tier.groups.forEach(group => {
+      if(group.name){
+        const gl = document.createElement('div');
+        gl.className = 'group-label';
+        gl.textContent = group.name;
+        tierEl.appendChild(gl);
+      }
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      group.skills.forEach(([name, max, reqs]) => {
+        const lv = state[tier.id][name];
+        const locked = lv === 0 && !reqsMet(reqs);
+        const highlight = profHighlightFor(name); // null | 'required' | 'elective'
+        const node = document.createElement('div');
+        node.className = 'node'
+          + (lv>0?' filled':'')
+          + (lv>=max?' maxed':'')
+          + (locked?' locked':'')
+          + (highlight==='required' ? ' prof-required' : '')
+          + (highlight==='elective' ? ' prof-elective' : '');
+        if(locked) node.title = `需求：${reqsLabel(reqs)}`;
+        node.innerHTML = `
+          <div class="node-top">
+            <div class="node-name">${name}${locked?' <span class="lock">🔒</span>':''}</div>
+            <div class="node-lv">${lv}/${max}</div>
+          </div>
+          ${locked ? `<div class="req-note"><div class="req-note-title">需修習</div>${reqsChecklistHtml(reqs)}</div>` : ''}
+          <div class="bar">${Array.from({length:max}).map((_,i)=>`<i class="${i<lv?'on':''}"></i>`).join('')}</div>
+        `;
+        node.addEventListener('click', () => {
+          if(state[tier.id][name] < max && reqsMet(reqs)){
+            state[tier.id][name]++;
+            renderAll();
+          }
+        });
+        node.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          if(state[tier.id][name] > 0 && canDecrease(name)){
+            state[tier.id][name]--;
+            renderAll();
+          }
+        });
+        grid.appendChild(node);
+      });
+      tierEl.appendChild(grid);
+    });
+
+    root.appendChild(tierEl);
+  });
+
+  document.getElementById('totalLeft').textContent = totalUsed();
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n]) => state[t.id][n]=0)));
+  renderAll();
+});
+
+document.getElementById('fillBtn').addEventListener('click', () => {
+  // multiple passes: some skills unlock only after a prerequisite is raised,
+  // so keep sweeping until a full pass makes no further progress
+  let changed = true;
+  while(changed){
+    changed = false;
+    DATA.forEach(tier => {
+      tier.groups.forEach(group => {
+        group.skills.forEach(([name, max, reqs]) => {
+          while(state[tier.id][name] < max && reqsMet(reqs)){
+            state[tier.id][name]++;
+            changed = true;
+          }
+        });
+      });
+    });
+  }
+  renderAll();
+});
+
+renderAll();
+</script>
+</body>
+</html>
