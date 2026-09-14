@@ -3,785 +3,672 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Department of Mathematics, NCUE </title>
+<title>彰師數學宇宙</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#f4f6fa;
-    --bg-2:#ffffff;
-    --panel:#ffffff;
-    --panel-edge:#dde4ee;
-    --navy:#1c3f66;
-    --blue:#2f6fb0;
-    --blue-bright:#3f8fe0;
-    --blue-dim:#8fadd1;
-    --blue-tint:#eaf1fa;
-    --violet:#7c5cbf;
-    --violet-bright:#9575cd;
-    --crimson:#c0392b;
-    --crimson-bright:#e0524a;
-    --ink:#1e2733;
-    --ink-dim:#67717f;
-    --muted:#9aa5b1;
-    --track:#e7ebf1;
-    --shadow:rgba(30,45,70,0.08);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:transparent;}
-  body{
-    font-family:'Noto Serif TC', serif;
-    color:var(--ink);
-    background:
-      radial-gradient(ellipse at 50% -10%, #e7eef9 0%, transparent 55%),
-      var(--bg);
-    min-height:100vh;
-    padding:28px 16px 60px;
-  }
-  .wrap{max-width:880px;margin:0 auto;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  background:radial-gradient(circle at 50% 0%,#25202d 0%,#111014 45%,#09090b 100%);
+  color:#eee;line-height:1.8
+}
+a{color:inherit;text-decoration:none}
+.section{min-height:100vh;padding:100px 8%;display:flex;flex-direction:column;justify-content:center}
+.section-title{text-align:center;margin-bottom:60px}
+.section-title .chapter{color:#b9a7d9;letter-spacing:4px;font-size:.85rem}
+.section-title h2{font-size:clamp(2rem,5vw,3.5rem);margin:10px 0}
+.section-title p{color:#aaa}
 
-  /* ---------- Header ---------- */
-  .banner{
-    position:relative;
-    text-align:center;
-    padding:26px 20px 22px;
-    margin-bottom:22px;
-    background:
-      linear-gradient(180deg, rgba(47,111,176,0.06), rgba(47,111,176,0) 60%),
-      var(--panel);
-    border:1px solid var(--panel-edge);
-    border-radius:6px;
-    box-shadow:0 1px 3px var(--shadow);
-  }
-  .banner::before, .banner::after{
-    content:"";
-    position:absolute; top:8px; bottom:8px; width:1px;
-    background:linear-gradient(180deg, transparent, var(--blue-dim), transparent);
-  }
-  .banner::before{left:8px;} .banner::after{right:8px;}
-  .eyebrow{
-    font-family:'Cinzel', serif;
-    letter-spacing:0.35em;
-    font-size:11px;
-    color:var(--blue-dim);
-    text-transform:uppercase;
-    margin-bottom:10px;
-  }
-  h1{
-    font-family:'Noto Serif TC', serif;
-    font-weight:700;
-    font-size:clamp(26px,5vw,38px);
-    margin:0 0 6px;
-    color:var(--navy);
-    letter-spacing:0.06em;
-  }
-  .sub{
-    font-size:13px;
-    color:var(--ink-dim);
-    letter-spacing:0.08em;
-  }
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero:before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px);
+  background-size:70px 70px;opacity:.15
+}
+.hero-content{position:relative;z-index:1;max-width:900px}
+.hero-symbol{font-size:5rem;margin-bottom:20px}
+.hero h1{
+  font-size:clamp(3rem,8vw,6rem);margin:0;letter-spacing:8px;
+  background:linear-gradient(120deg,#fff,#cbbbe5,#8e78b8);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.hero-subtitle{margin-top:20px;color:#bdb7c7;font-size:1.2rem}
+.hero-description{max-width:650px;margin:40px auto;color:#aaa}
+.start-button{
+  display:inline-block;padding:15px 42px;border:1px solid #8975aa;border-radius:4px;
+  transition:.2s
+}
+.start-button:hover{background:#8975aa;transform:translateY(-3px);box-shadow:0 10px 35px rgba(137,117,170,.25)}
 
-  /* ---------- Points summary bar ---------- */
-  .summary{
-    display:flex; align-items:center; justify-content:space-between;
-    gap:12px; flex-wrap:wrap;
-    background:var(--panel);
-    border:1px solid var(--panel-edge);
-    padding:12px 18px;
-    margin-bottom:26px;
-    border-radius:6px;
-    box-shadow:0 1px 3px var(--shadow);
-  }
-  .summary .total{
-    font-family:'Cinzel', serif;
-    font-size:14px; letter-spacing:0.08em; color:var(--ink-dim);
-  }
-  .summary .total b{
-    color:var(--blue-bright); font-size:20px; margin:0 4px;
-  }
-  .actions{display:flex; gap:8px;}
-  .btn{
-    font-family:'Cinzel', serif;
-    font-size:11px; letter-spacing:0.12em;
-    background:var(--bg-2);
-    color:var(--ink-dim);
-    border:1px solid var(--panel-edge);
-    padding:8px 14px;
-    cursor:pointer;
-    border-radius:4px;
-    transition:border-color .15s, color .15s, background .15s;
-  }
-  .btn:hover{border-color:var(--blue-dim); color:var(--blue); background:var(--blue-tint);}
-  .btn.danger:hover{border-color:var(--crimson-bright); color:var(--crimson);}
+.story{max-width:850px;margin:auto;font-size:1.15rem}
+.story p{margin-bottom:28px}
+.highlight{color:#d5c8e8;font-weight:bold}
+.story-quote{
+  margin:50px 0;padding:30px;border-left:3px solid #8975aa;
+  background:rgba(255,255,255,.03);font-size:1.4rem
+}
 
-  /* ---------- Tier tablet ---------- */
-  .tier{
-    background:var(--panel);
-    border:1px solid var(--panel-edge);
-    border-radius:6px;
-    margin-bottom:22px;
-    overflow:hidden;
-    box-shadow:0 1px 3px var(--shadow);
-  }
-  .tier-head{
-    display:flex; align-items:baseline; justify-content:space-between;
-    padding:14px 20px;
-    background:linear-gradient(90deg, rgba(47,111,176,0.07), transparent 70%);
-    border-bottom:1px solid var(--panel-edge);
-  }
-  .tier-head .name{
-    font-family:'Cinzel', serif;
-    font-size:12px; letter-spacing:0.28em; color:var(--blue-dim);
-    text-transform:uppercase;
-  }
-  .tier-head .job{
-    font-size:19px; font-weight:600; color:var(--ink); margin-left:10px;
-  }
-  .tier-head .pool{
-    font-family:'Cinzel', serif;
-    font-size:12px; color:var(--ink-dim); letter-spacing:0.06em;
-    white-space:nowrap;
-  }
-  .tier-head .pool b{color:var(--blue-bright); font-size:15px;}
-  .tier-head .pool.zero b{color:var(--crimson-bright);}
+.castle{text-align:center}
+.castle-icon{font-size:6rem;margin-bottom:20px}
+.castle h3{font-size:2rem;margin-bottom:10px}
+.castle>p{max-width:700px;margin:auto;color:#aaa}
+.places{margin-top:60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.place{
+  padding:24px 20px;background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);border-radius:5px;
+  transition:.2s;cursor:pointer
+}
+.place:hover{transform:translateY(-5px);border-color:#8975aa;background:rgba(137,117,170,.10)}
 
-  .group-label{
-    font-size:12px; color:var(--muted); letter-spacing:0.15em;
-    padding:12px 20px 0;
-  }
+.space-modal{
+  position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;
+  padding:24px;background:rgba(0,0,0,.72);backdrop-filter:blur(5px)
+}
+.space-modal.show{display:flex}
+.space-dialog{
+  width:min(680px,100%);max-height:85vh;overflow-y:auto;padding:38px 34px;
+  background:linear-gradient(145deg,rgba(137,117,170,.16),rgba(255,255,255,.035)),#15131a;
+  border:1px solid #66567d;border-radius:8px;box-shadow:0 25px 80px rgba(0,0,0,.65);
+  position:relative
+}
+.space-dialog-icon{text-align:center;font-size:4rem;margin-bottom:10px}
+.space-dialog h3{text-align:center;font-size:2rem;margin:0 0 20px;color:#d5c8e8}
+.space-dialog p{color:#bbb;margin:0 0 18px}
+.space-dialog .dialogue-line{
+  padding:18px 20px;margin-top:22px;border-left:2px solid #8975aa;
+  background:rgba(0,0,0,.18);color:#ccc
+}
+.space-close{
+  position:absolute;top:12px;right:16px;border:0;background:transparent;
+  color:#aaa;font-size:1.8rem;cursor:pointer
+}
+.space-close:hover{color:#fff}
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
-    gap:10px;
-    padding:14px 18px 18px;
-  }
+.npcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:1000px;margin:auto}
+.npc{
+  padding:35px 30px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1);border-radius:8px;
+  transition:transform .25s,border-color .25s,box-shadow .25s
+}
+.npc:hover{transform:translateY(-8px);border-color:#9b86bd;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.npc-avatar{text-align:center;font-size:5rem}
+.npc-role{text-align:center;color:#b9a7d9;font-size:.85rem;letter-spacing:2px}
+.npc h3{text-align:center;font-size:1.7rem;margin:5px 0 15px}
+.npc-intro{color:#aaa;text-align:center}
+.npc-skills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
+.npc-skill{padding:4px 10px;border:1px solid #555;border-radius:20px;color:#aaa;font-size:.8rem}
+.dialogue{margin-top:25px}
+.dialogue summary{cursor:pointer;color:#d5c8e8;text-align:center;list-style:none}
+.dialogue summary::-webkit-details-marker{display:none}
+.dialogue summary:hover{color:#fff}
+.dialogue-content{margin-top:15px;padding:18px;border-left:2px solid #8975aa;background:rgba(0,0,0,.15);color:#aaa}
+.dialogue-content strong{color:#ddd}
+.dialogue-content hr{border:0;border-top:1px solid rgba(255,255,255,.08);margin:20px 0}
+.npc-quest{margin-top:25px;padding:18px;background:rgba(0,0,0,.2);border-radius:5px;color:#aaa}
+.npc-quest strong{display:block;margin-bottom:8px;color:#ddd}
 
-  /* ---------- Skill node ---------- */
-  .node{
-    position:relative;
-    background:var(--bg-2);
-    border:1px solid var(--panel-edge);
-    border-radius:4px;
-    padding:10px 10px 9px;
-    cursor:pointer;
-    user-select:none;
-    -webkit-user-select:none;
-    transition:border-color .15s, transform .1s, box-shadow .15s;
-  }
-  .node:hover{border-color:var(--blue-dim); transform:translateY(-1px);}
-  .node.filled{
-    border-color:var(--blue);
-    box-shadow:0 0 0 1px rgba(47,111,176,0.18) inset;
-  }
-  .node.maxed{
-    border-color:var(--blue-bright);
-    box-shadow:0 0 0 1px rgba(63,143,224,0.3) inset, 0 0 10px rgba(63,143,224,0.12);
-  }
-  .node.locked{
-    cursor:not-allowed;
-    border-style:dashed;
-    border-color:var(--muted);
-    background:var(--bg-2);
-  }
-  .node.locked:hover{border-color:var(--crimson-bright); transform:none;}
-  .lock{font-size:11px; opacity:0.8;}
-  .req-note{
-    margin-top:8px;
-    padding-top:7px;
-    border-top:1px dashed var(--panel-edge);
-  }
-  .req-note-title{
-    font-size:10px; letter-spacing:0.08em; color:var(--ink-dim);
-    margin-bottom:4px;
-  }
-  .req-item{
-    display:flex; align-items:center; gap:5px;
-    font-size:11.5px; line-height:1.6;
-  }
-  .req-item .mark{
-    font-size:10px; width:13px; flex:none; text-align:center;
-  }
-  .req-item.met{color:var(--ink);}
-  .req-item.met .mark{color:var(--blue-bright);}
-  .req-item.unmet{color:var(--ink-dim);}
-  .req-item.unmet .mark{color:var(--crimson-bright);}
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;max-width:1100px;margin:auto}
+.path{
+  min-height:300px;padding:40px 30px;
+  background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.1);border-radius:6px;transition:.25s
+}
+.path:hover{transform:translateY(-8px);border-color:#9b86bd;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.path-icon{font-size:3.5rem}.path h3{font-size:1.6rem}.path p{color:#aaa}
+.path-tag{display:inline-block;margin-top:15px;padding:4px 12px;border:1px solid #555;border-radius:20px;font-size:.8rem;color:#aaa}
 
-  /* profession-required / elective node highlight (layered on top of existing state) */
-  .node.prof-required{
-    border-color:var(--blue);
-    box-shadow:0 0 0 1px rgba(47,111,176,0.35) inset, 0 0 10px rgba(47,111,176,0.16);
-  }
-  .node.prof-elective{
-    border-color:var(--violet);
-    box-shadow:0 0 0 1px rgba(124,92,191,0.35) inset, 0 0 10px rgba(124,92,191,0.16);
-  }
+.player{max-width:900px;margin:auto;text-align:center}
+.player-card{padding:50px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:8px}
+.player-avatar{font-size:5rem}.player-card h3{font-size:2rem}.player-card p{color:#aaa}
 
-  /* ---------- System-required (系必修) bar ---------- */
-  .required-panel{
-    background:var(--panel);
-    border:1px solid var(--panel-edge);
-    border-radius:6px;
-    padding:14px 18px;
-    margin-bottom:20px;
-    box-shadow:0 1px 3px var(--shadow);
-  }
-  .required-panel.unlocked{
-    border-color:var(--blue-bright);
-    box-shadow:0 0 0 1px rgba(63,143,224,0.3) inset, 0 0 12px rgba(63,143,224,0.14);
-  }
-  .required-head{
-    display:flex; align-items:center; justify-content:space-between;
-    margin-bottom:9px;
-  }
-  .required-title{
-    font-family:'Cinzel', serif;
-    font-size:12px; letter-spacing:0.2em; color:var(--blue-dim);
-    text-transform:uppercase;
-  }
-  .required-count{font-size:13px; color:var(--ink-dim);}
-  .required-count b{color:var(--ink); font-weight:600;}
-  .required-panel.unlocked .required-count b{color:var(--blue-bright);}
-  .required-bar-track{height:6px; background:var(--track); border-radius:3px; overflow:hidden;}
-  .required-bar-track i{
-    display:block; height:100%;
-    background:linear-gradient(90deg, var(--crimson), var(--crimson-bright));
-  }
-  .required-panel.unlocked .required-bar-track i{
-    background:linear-gradient(90deg, var(--blue), var(--blue-bright));
-  }
+.map{max-width:800px;margin:auto}
+.map-node{
+  padding:25px;border:1px solid #65567d;background:rgba(255,255,255,.04);
+  border-radius:5px;margin:20px auto;max-width:500px;text-align:center;transition:.2s
+}
+.map-node:hover{border-color:#b9a7d9;transform:scale(1.02)}
+.map-arrow{text-align:center;color:#8975aa;font-size:1.5rem}
 
-  /* ---------- Profession cards ---------- */
-  .professions{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-    gap:12px;
-    margin-bottom:26px;
-  }
-  .prof-card{
-    background:var(--panel);
-    border:1px solid var(--panel-edge);
-    border-radius:6px;
-    padding:14px 16px;
-    cursor:pointer;
-    transition:border-color .15s, box-shadow .15s, transform .1s;
-    box-shadow:0 1px 3px var(--shadow);
-  }
-  .prof-card:hover{border-color:var(--blue-dim); transform:translateY(-1px);}
-  .prof-card.selected{border-color:var(--blue); box-shadow:0 0 0 1px rgba(47,111,176,0.22) inset;}
-  .prof-card.unlocked{
-    border-color:var(--blue-bright);
-    box-shadow:0 0 0 1px rgba(63,143,224,0.32) inset, 0 0 12px rgba(63,143,224,0.14);
-  }
-  .prof-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
-  .prof-name{font-size:15.5px; font-weight:600; color:var(--ink);}
-  .prof-card.unlocked .prof-name{color:var(--blue);}
-  .prof-badge{
-    font-family:'Cinzel', serif;
-    font-size:10px; letter-spacing:0.1em;
-    color:#ffffff; background:var(--blue-bright);
-    padding:2px 7px; border-radius:3px;
-  }
-  .prof-rule{margin-top:8px;}
-  .prof-rule-label{
-    display:flex; justify-content:space-between;
-    font-size:11px; color:var(--ink-dim); margin-bottom:4px;
-  }
-  .prof-rule-label b{color:var(--ink); font-weight:600;}
-  .prof-rule-label.met b{color:var(--blue-bright);}
-  .prof-bar{height:5px; background:var(--track); border-radius:3px; overflow:hidden;}
-  .prof-bar i{display:block; height:100%; background:linear-gradient(90deg, var(--blue), var(--blue-bright));}
-  .prof-rule.required .prof-bar i{background:linear-gradient(90deg, var(--blue), var(--blue-bright));}
-  .prof-rule.elective .prof-bar i{background:linear-gradient(90deg, var(--violet), var(--violet-bright));}
-  .node-top{display:flex; justify-content:space-between; align-items:flex-start; gap:6px;}
-  .node-name{font-size:13.5px; line-height:1.35; color:var(--ink); font-weight:500;}
-  .node.maxed .node-name{color:var(--blue);}
-  .node-lv{
-    font-family:'Cinzel', serif;
-    font-size:11px; color:var(--ink-dim);
-    white-space:nowrap; padding-top:1px;
-  }
-  .node.filled .node-lv{color:var(--blue);}
-  .bar{
-    margin-top:8px;
-    height:4px;
-    background:var(--track);
-    border-radius:2px;
-    overflow:hidden;
-    display:flex;
-  }
-  .bar i{
-    display:block; flex:1; margin-right:1px;
-    background:var(--track);
-  }
-  .bar i:last-child{margin-right:0;}
-  .bar i.on{background:linear-gradient(90deg, var(--blue), var(--blue-bright));}
+.simulator-entry{text-align:center;max-width:900px;margin:auto}
+.simulator-box{
+  padding:60px 30px;background:linear-gradient(145deg,rgba(137,117,170,.12),rgba(255,255,255,.025));
+  border:1px solid #66567d;border-radius:8px
+}
+.simulator-box h3{font-size:2rem}.simulator-box p{color:#aaa}
+.enter-button{display:inline-block;margin-top:25px;padding:14px 35px;background:#8975aa;border-radius:4px;transition:.2s}
+.enter-button:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(137,117,170,.3)}
 
-  .hint{
-    text-align:center; font-size:11.5px; color:var(--muted);
-    letter-spacing:0.08em; margin-top:2px; margin-bottom:20px;
-  }
+.ending{text-align:center;max-width:800px;margin:auto}
+.ending-symbol{font-size:4rem}.ending h2{font-size:2.5rem}.ending p{color:#aaa}
 
-  footer{
-    text-align:center; margin-top:30px; font-size:11px; color:var(--muted);
-    letter-spacing:0.1em;
-  }
+@media(max-width:600px){
+  .section{padding:80px 6%}.hero h1{letter-spacing:3px}
+  .player-card{padding:30px 20px}.space-dialog{padding:32px 22px}
+}
 
-  @media (max-width:480px){
-    .tier-head{flex-wrap:wrap; gap:4px;}
-    .summary{flex-direction:column; align-items:flex-start;}
-  }
+
+/* ===== Shared light visual system — matched to skills_sim.html ===== */
+:root{
+  --bg:#f4f6fa;
+  --bg-2:#ffffff;
+  --panel:#ffffff;
+  --panel-edge:#dde4ee;
+  --navy:#1c3f66;
+  --blue:#2f6fb0;
+  --blue-bright:#3f8fe0;
+  --blue-dim:#8fadd1;
+  --blue-tint:#eaf1fa;
+  --violet:#7c5cbf;
+  --violet-bright:#9575cd;
+  --crimson:#c0392b;
+  --ink:#1e2733;
+  --ink-dim:#67717f;
+  --muted:#9aa5b1;
+  --track:#e7ebf1;
+  --shadow:rgba(30,45,70,0.08);
+}
+html{background:var(--bg)}
+body{
+  font-family:'Noto Serif TC','Microsoft JhengHei',serif;
+  color:var(--ink);
+  background:radial-gradient(ellipse at 50% -10%,#e7eef9 0%,transparent 55%),var(--bg);
+}
+a{color:inherit}
+.section{position:relative}
+.section-title .chapter{color:var(--blue-dim);font-weight:600}
+.section-title h2{color:var(--navy)}
+.section-title p,.story p,.castle>p,.path p,.player-card p,.simulator-box p,.ending p{color:var(--ink-dim)}
+
+.hero:before{
+  background-image:radial-gradient(circle,rgba(47,111,176,.22) 1px,transparent 1px);
+  background-size:70px 70px;opacity:.45;
+}
+.hero-content{
+  max-width:900px;padding:42px 44px;background:rgba(255,255,255,.82);
+  border:1px solid var(--panel-edge);border-radius:6px;box-shadow:0 1px 3px var(--shadow);
+}
+.hero h1{
+  background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--navy);
+  text-shadow:none;
+}
+.hero-subtitle{color:var(--blue);letter-spacing:.08em}
+.hero-description{color:var(--ink-dim)}
+
+.start-button,.enter-button{
+  display:inline-block;border:1px solid var(--blue-dim);border-radius:4px;
+  background:var(--bg-2);color:var(--blue);box-shadow:none;
+  transition:border-color .15s,color .15s,background .15s,transform .15s,box-shadow .15s;
+}
+.start-button:hover,.enter-button:hover{
+  background:var(--blue-tint);border-color:var(--blue);color:var(--navy);
+  transform:translateY(-2px);box-shadow:0 6px 18px var(--shadow);
+}
+
+.story-quote,.place,.npc,.path,.player-card,.map-node,.simulator-box,.space-dialog{
+  background:var(--panel);border-color:var(--panel-edge);
+  box-shadow:0 1px 3px var(--shadow);
+}
+.story-quote{border-left:3px solid var(--blue)}
+.highlight{color:var(--blue);font-weight:700}
+.place:hover,.npc:hover,.path:hover,.map-node:hover{
+  border-color:var(--blue-dim);box-shadow:0 8px 22px var(--shadow);
+}
+
+.npc-role,.dialogue summary{color:var(--blue)}
+.npc-intro,.dialogue-content,.npc-quest{color:var(--ink-dim)}
+.npc-skill,.path-tag{border-color:var(--panel-edge);color:var(--ink-dim);background:var(--bg)}
+.dialogue summary:hover{color:var(--navy)}
+.dialogue-content,.npc-quest,.space-dialog .dialogue-line{
+  background:var(--bg);border-color:var(--blue-dim);color:var(--ink-dim);
+}
+.dialogue-content strong,.npc-quest strong{color:var(--ink)}
+.dialogue-content hr{border-top-color:var(--panel-edge)}
+
+.space-modal{background:rgba(30,39,51,.38);backdrop-filter:blur(4px)}
+.space-dialog{background:var(--panel)}
+.space-dialog h3{color:var(--navy)}
+.space-dialog p{color:var(--ink-dim)}
+.space-close{color:var(--muted)}
+.space-close:hover{color:var(--ink)}
+
+.map-node{border-color:var(--panel-edge)}
+.map-arrow{color:var(--blue)}
+.simulator-box{position:relative;overflow:hidden}
+.ending h2{color:var(--navy)}
+
+@media(max-width:600px){
+  .hero-content{padding:32px 22px;margin:0 16px}
+}
+
+
+
+/* ===== Chapter III merged adventurer + simulator card ===== */
+.adventurer-simulator-card{max-width:760px;margin:0 auto;padding:48px 42px;}
+.adventurer-simulator-card .player-avatar{margin-bottom:8px;}
+.adventurer-simulator-card h3{margin:8px 0 12px;color:var(--navy);}
+.adventurer-simulator-card h4{margin:8px 0 12px;font-size:1.55rem;color:var(--navy);}
+.adventurer-simulator-card p{max-width:620px;margin:8px auto;line-height:1.8;}
+.simulator-divider{height:1px;background:var(--panel-edge);max-width:560px;margin:30px auto 26px;}
+.simulator-icon{font-size:3rem;line-height:1;margin-bottom:8px;}
+.adventurer-simulator-card .enter-button{margin-top:20px;}
+@media(max-width:600px){
+  .adventurer-simulator-card{padding:34px 22px;}
+  .simulator-divider{margin:24px auto 22px;}
+}
+
+/* ===== RGB career paths & alumni spectrum ===== */
+:root{--math:#d94a4a;--stat:#3f7ccf;--info:#3aa675;}
+.path{cursor:pointer;position:relative;overflow:hidden;text-align:left}
+.path::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--path-color)}
+.path.math{--path-color:var(--math)} .path.stat{--path-color:var(--stat)} .path.info{--path-color:var(--info)}
+.path.math:hover{border-color:var(--math)} .path.stat:hover{border-color:var(--stat)} .path.info:hover{border-color:var(--info)}
+.path.math .path-tag{color:var(--math);border-color:rgba(217,74,74,.35);background:rgba(217,74,74,.06)}
+.path.stat .path-tag{color:var(--stat);border-color:rgba(63,124,207,.35);background:rgba(63,124,207,.06)}
+.path.info .path-tag{color:var(--info);border-color:rgba(58,166,117,.35);background:rgba(58,166,117,.06)}
+.path-more{margin-top:22px;font-size:.84rem;color:var(--path-color);font-weight:700;letter-spacing:.04em}
+.career-modal{position:fixed;inset:0;z-index:1200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(30,39,51,.38);backdrop-filter:blur(4px)}
+.career-modal.show{display:flex}
+.career-dialog{width:min(980px,100%);max-height:88vh;overflow:auto;background:var(--panel);border:1px solid var(--panel-edge);border-radius:8px;box-shadow:0 18px 55px rgba(30,45,70,.18);padding:34px;position:relative}
+.career-close{position:absolute;right:16px;top:10px;border:0;background:transparent;font-size:1.8rem;color:var(--muted);cursor:pointer}.career-close:hover{color:var(--ink)}
+.career-head{text-align:center;margin-bottom:26px}.career-head .career-icon{font-size:3.4rem}.career-head h3{font-size:2rem;color:var(--navy);margin:4px 0}.career-head p{margin:0;color:var(--ink-dim)}
+.alumni-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:14px}
+.alumni-card{border:1px solid var(--panel-edge);border-radius:6px;padding:18px;background:#fff;box-shadow:0 1px 3px var(--shadow)}
+.alumni-name{font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:8px}.alumni-org{font-size:.9rem;color:var(--ink-dim)}.alumni-role{font-size:.92rem;color:var(--navy);font-weight:600;margin-bottom:14px}
+.spectrum{height:7px;border-radius:99px;margin-bottom:6px}.spectrum.math{background:var(--math)}.spectrum.stat{background:var(--stat)}.spectrum.info{background:var(--info)}.spectrum.stat-info{background:linear-gradient(90deg,var(--stat) 0 50%,var(--info) 50%)}.spectrum.math-stat{background:linear-gradient(90deg,var(--math) 0 50%,var(--stat) 50%)}.spectrum.math-info{background:linear-gradient(90deg,var(--math) 0 50%,var(--info) 50%)}.spectrum.all{background:linear-gradient(90deg,var(--math) 0 33.33%,var(--stat) 33.33% 66.66%,var(--info) 66.66%)}
+.salary{padding-top:11px;border-top:1px solid var(--panel-edge);font-size:.8rem;color:var(--ink-dim)}.salary b{display:block;font-family:'Cinzel',serif;font-size:1rem;color:var(--ink);margin-top:2px}
+
+.career-section-title{display:flex;align-items:center;gap:10px;margin:28px 0 14px;font-size:1rem;color:var(--navy);font-weight:800;letter-spacing:.06em}.career-section-title::after{content:"";height:1px;background:var(--panel-edge);flex:1}.career-section-title:first-of-type{margin-top:0}
+.job-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.job-card{border:1px solid var(--panel-edge);border-radius:6px;padding:16px;background:var(--bg);box-shadow:0 1px 2px rgba(30,45,70,.04)}
+.job-name{font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:5px}.job-desc{font-size:.78rem;line-height:1.55;color:var(--ink-dim);min-height:2.4em;margin-bottom:11px}.job-metric{margin-top:10px;font-size:.76rem;color:var(--muted)}.job-metric b{display:block;color:var(--navy);font-size:.92rem;margin-top:2px}.job-count{font-size:.72rem;color:var(--muted);margin-top:3px}
+.market-note{margin-top:14px;font-size:.72rem;line-height:1.6;color:var(--muted)}
+
+.career-legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:0 0 22px;font-size:.8rem;color:var(--ink-dim)}.career-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.career-note{margin-top:20px;padding:12px 14px;background:var(--bg);border-radius:5px;color:var(--muted);font-size:.75rem;line-height:1.65}
+@media(max-width:600px){.career-dialog{padding:30px 18px}.alumni-grid{grid-template-columns:1fr}}
+
+
+
+/* ===== Shared MATH watermark ===== */
+.math-watermark{
+  position:fixed;
+  inset:0;
+  background-image:url("watermark.png");
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size:min(1200px, 88vw) auto;
+  opacity:.10;
+  pointer-events:none;
+  z-index:0;
+}
+body > *:not(.math-watermark){
+  position:relative;
+  z-index:1;
+}
+
 </style>
 </head>
+
 <body>
-<div class="wrap">
+<div class="math-watermark" aria-hidden="true"></div>
 
-  <div class="banner">
-    <div class="eyebrow">National Changhua University of Education</div>
-    <h1>Department of Mathematics skills simulator</h1>
-    <div class="sub">Freshman → Sophomore → Junior → Senior</div>
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-symbol">🌌</div>
+    <h1>彰師數學宇宙</h1>
+    <div class="hero-subtitle">NCUE Mathematics Universe</div>
+    <p class="hero-description">
+      歡迎來到一個由<strong>數學、統計與資訊</strong>交織而成的世界。
+      <br><br>
+      在這裡，每一門課程都是一項能力，每一次選擇都可能開啟新的道路。
+    </p>
+    <a href="#story" class="start-button">開始冒險</a>
   </div>
+</section>
 
-  <div class="summary">
-    <div class="total">已累計點數 <b id="totalLeft">0</b></div>
-    <div class="actions">
-      <button class="btn" id="fillBtn">全點滿</button>
-      <button class="btn danger" id="resetBtn">清零</button>
+<section class="section" id="story">
+  <div class="section-title">
+    <div class="chapter">PROLOGUE</div>
+    <h2>從數學出發，走向更多可能</h2>
+    <p>認識現在的彰師大數學系</p>
+  </div>
+  <div class="story">
+    <p>彰師大數學系以<span class="highlight">紮實的數學訓練</span>為核心，培養學生的邏輯思考、分析與問題解決能力。</p>
+    <p>除了傳統數學課程之外，系上也提供<span class="highlight">統計</span>與<span class="highlight">資訊</span>相關課程，讓學生能依照自己的興趣與生涯方向，逐步發展不同的專業能力。</p>
+    <p>在這裡，數學不只是通往教育工作的工具，也可以延伸到資料分析、統計應用、程式設計、人工智慧與科技產業。</p>
+    <div class="story-quote">
+      透過數學、統計與資訊三個方向的學習，
+      <br><br>
+      探索適合自己的道路，為更多元的升學與就業選擇做好準備。
     </div>
   </div>
+</section>
 
-  <div id="requiredBar"></div>
+<section class="section" id="qiaosi">
+  <div class="section-title">
+    <div class="chapter">CHAPTER I</div>
+    <h2>你的冒險基地</h2>
+    <p>🏰 巧思館</p>
+  </div>
 
-  <div id="professions"></div>
+  <div class="castle">
+    <div class="castle-icon">🏰</div>
+    <h3>巧思館</h3>
+    <p>
+      這裡是數學人的學習與交流空間。
+      <br><br>
+      電腦教室、研討室、教師研究室與系辦公室，共同構成你的冒險基地。
+      <br><br>
+      <small>點擊一個空間，探索它在數學宇宙中的角色。</small>
+    </p>
 
-  <div id="tiers"></div>
+    <div class="places">
+      <div class="place" data-space="computer">💻 電腦教室</div>
+      <div class="place" data-space="seminar">🔬 研討室</div>
+      <div class="place" data-space="office">🧑‍🏫 教師研究室</div>
+      <div class="place" data-space="department">🏢 系辦公室</div>
+    </div>
+  </div>
+</section>
 
-  <div class="hint">左鍵點擊課程增加已修時數 · 右鍵點擊減少 · 點擊上方職業卡片可標記所需課程</div>
-
-  <footer>仿作介面 · 參考自 RO 技能配點頁面</footer>
+<div class="space-modal" id="spaceModal" aria-hidden="true">
+  <div class="space-dialog" role="dialog" aria-modal="true" aria-labelledby="spaceTitle">
+    <button class="space-close" id="spaceClose" aria-label="關閉">×</button>
+    <div class="space-dialog-icon" id="spaceIcon">📚</div>
+    <h3 id="spaceTitle">圖書室</h3>
+    <div id="spaceContent"></div>
+  </div>
 </div>
 
-<script>
-const DATA = [
-  {
-    id:'Y1S1', label:'大一上', job:'Freshman', pool:50,
-    groups:[{ name:null, skills:[['生命探索發展與實踐', 2],
- ['微積分(一)', 4,],
- ['微積分探究(一)', 1],
- ['數學導論', 3],
- ['線性代數(一)', 3],
- ['統計科學導論', 3],
- ['計算機概論', 3]]}]
-  },
+<section class="section" id="npcs">
+  <div class="section-title">
+    <div class="chapter">NPC · GUILD STAFF</div>
+    <h2>巧思館的管理者</h2>
+    <p>在冒險途中，你會遇到幫助你前進的 NPC。</p>
+  </div>
 
-  {
-    id:'Y1S2', label:'大一下', job:'Freshman', pool:50,
-    groups:[{ name:null, skills:[['人工智慧及其應用', 2, []],
- ['微積分(二)', 4, []],
- ['數論', 3, []],
- ['線性代數(二)', 3, []],
- ['程式設計', 3, []]]}]
-  },
+  <div class="npcs">
 
-  {
-    id:'Y2S1', label:'大二上', job:'Sophmore', pool:70,
-    groups:[{ name:'騎士',
-             skills:[['數學軟體應用', 3, []],
-                     ['離散數學', 3, []],
-                     ['高等微積分(一)', 4, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
-                     ['高等微積分探究(一)', 1, []],
-                     ['微分方程(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
-                     ['代數學(一)', 3, []]]
-            }]
-  },
+    <article class="npc">
+      <div class="npc-avatar">🧙‍♀️</div>
+      <div class="npc-role">課務管理者</div>
+      <h3>邱麗卿</h3>
+      <p class="npc-intro">掌管課務、教室借用，以及巧思館裡一項重要的神器。</p>
 
-  {
-    id:'Y2S2', label:'大二下', job:'Sophmore', pool:70,
-    groups:[{  name:'騎士',
-             skills:[ ['高等微積分(二)', 4, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
-                      ['高等微積分探究(二)', 1, []],
-                      ['微分方程(二)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3]]],
-                      ['代數學(二)', 3, []],
-                      ['機率論', 3, [['微積分(一)', 4], ['微積分(二)', 4]]],
-                      ['資料結構', 3, [['計算機概論', 3], ['程式設計', 3]]],
-                      ['物件導向程式設計', 3, [['計算機概論', 3], ['程式設計', 3]]]
-                    ]
-            }]
-  },
+      <div class="npc-skills">
+        <span class="npc-skill">📚 課務</span>
+        <span class="npc-skill">🏫 借教室</span>
+        <span class="npc-skill">❄️ 冷氣遙控</span>
+      </div>
 
-  {
-    id:'Y3S1', label:'大三上', job:'Junior', pool:70,
-    groups:[{ name:null, 
-            skills:[ ['數學科教材教法', 2, []], 
-                     ['數值分析(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3], ['程式設計', 3]]],
-                     ['複變數函數論(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['高等微積分(一)', 4], ['高等微積分(二)', 4]]], 
-                     ['組合學', 3, [['微積分(一)', 4], ['微積分(二)', 4]]], 
-                     ['代數學(三)', 3, [['代數學(一)', 3], ['代數學(二)', 3]]],
-                     ['統計學', 3, [['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]],
-                     ['計算機組織與結構', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]],
-                     ['作業系統', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]],
-                     ['電腦網路', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]]]
-            }]
-  },
-
-  {
-    id:'Y3S2', label:'大三下', job:'Junior', pool:70,
-    groups:[{ name:null, 
-            skills:[ ['數學科教學應用與實作', 2, []],
-                     ['微分幾何(一)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3], ['高等微積分(一)', 4], ['高等微積分(二)', 4], ['複變數函數論(一)', 3], ['微分方程(一)', 3]]],
-                     ['複變數函數論(二)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['高等微積分(一)', 4], ['高等微積分(二)', 4], ['拓樸學(一)', 3], ['代數學(一)', 3], ['代數學(二)', 3]]],
-                     ['拓樸學(一)', 3, []], 
-                     ['應用機率', 3, [['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]],
-                     ['幾何學(一)', 3, []],
-                     ['數理統計導論', 3, [['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
-                     ['應用統計(一)', 3, [['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
-                     ['演算法設計', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]], 
-                     ['資料庫', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3]]],
-                     ['數學模擬', 3, []],
-                     ['數值分析(二)', 3, []]]
-            }]
-  },
-
-  {
-    id:'Y4S1', label:'大四上', job:'Senior', pool:70,
-    groups:[{ name:null, 
-            skills:[['微分幾何(二)', 3, [['微積分(一)', 4], ['微積分(二)', 4], ['線性代數(一)', 3], ['線性代數(二)', 3], ['高等微積分(一)', 4], ['高等微積分(二)', 4], ['複變數函數論(一)', 3], ['微分方程(一)', 3]]],
-                    ['中學數學課程(一)', 3, []],
-                    ['數學科教學實習(一)', 2, []], 
-                    ['隨機過程', 3, [['應用機率', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
-                    ['應用統計(二)', 3, [['應用統計(一)', 3], ['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]], 
-                    ['資訊網路', 3, [['計算機概論', 3], ['程式設計', 3], ['資料結構', 3], ['資料庫', 3]]], 
-                    ['拓樸學(二)', 3, []],
-                    ['偏微分方程(一)', 3, []],
-                    ['機器學習', 3, [['應用統計(一)', 3], ['應用統計(二)', 3], ['統計學', 3], ['機率論', 3], ['程式設計', 3]]],
-                    ['金融數學', 3, [['應用統計(一)', 3], ['統計學', 3], ['機率論', 3], ['微積分(一)', 4], ['微積分(二)', 4]]],
-                    ['資料科學', 3, [['應用統計(一)', 3], ['應用統計(二)', 3], ['統計學', 3], ['機率論', 3], ['程式設計', 3]]],
-                    ['密碼學與資訊安全', 3, [['離散數學', 3], ['電腦網路', 3], ['作業系統', 3], ['程式設計', 3], ['資料結構', 3]]]]
-            }]
-  },
-
-  {
-    id:'Y4S2', label:'大四下', job:'Senior', pool:70,
-    groups:[{ name:null, 
-            skills:[ ['數學史', 3, []], 
-                     ['中學數學課程(二)', 3, []], 
-                     ['數學科教學實習(二)', 2, []], 
-                     ['人工智慧', 3, [['計算機概論', 3], ['線性代數(一)', 3], ['微積分(一)', 4], ['程式設計', 3], ['資料結構', 3], ['演算法設計', 3]]],
-                     ['資料探勘', 3, [['程式設計', 3], ['資料結構', 3], ['演算法設計', 3], ['資料庫', 3]]]]
-            }]
-  }
-];
-
-// ---------------------------------------------------------------
-// 職業系統：每個職業由一至多條「規則」組成，每條規則有自己的課程清單
-// 與達成門檻（學分）。全部規則都達成，該職業才算解鎖。
-// kind: 'required' (必修，藍框) | 'elective' (選修，紫框)
-// ---------------------------------------------------------------
-const PROFESSIONS = [
-  {
-    id: 'math_researcher', name: '數學研究家',
-    rules: [
-      { label: '必修', kind: 'required', min: 9,
-        courses: ['代數學(三)', '微分幾何(一)', '組合學'] },
-      { label: '選修', kind: 'elective', min: 12,
-        courses: ['數論', '微分方程(二)', '複變數函數論(二)', '拓樸學(一)',
-                  '數學史', '偏微分方程(一)', '拓樸學(二)', '微分幾何(二)'] },
-    ]
-  },
-  {
-    id: 'data_analyst', name: '資料分析家',
-    rules: [
-      { label: '必修', kind: 'required', min: 9,
-        courses: ['應用機率', '應用統計(一)', '數理統計導論'] },
-      { label: '選修1', kind: 'elective', min: 9,
-        courses: ['數值分析(一)', '應用統計(二)', '隨機過程', '機器學習', '金融數學'] },
-      { label: '選修2', kind: 'elective', min: 3,
-        courses: ['數學模擬', '數值分析(二)', '偏微分方程(一)', '資料庫', '資料科學'] },
-    ]
-  },
-  {
-    id: 'programmer', name: '程式創造家',
-    rules: [
-      { label: '必修', kind: 'required', min: 9,
-        courses: ['資料結構', '離散數學', '作業系統'] },
-      { label: '選修', kind: 'elective', min: 12,
-        courses: ['物件導向程式設計', '電腦網路', '計算機組織與結構', '演算法設計',
-                  '資料庫', '密碼學與資訊安全', '資料探勘', '人工智慧'] },
-    ]
-  },
-];
-
-// ---------------------------------------------------------------
-// 系必修：這份清單裡的課「每一門」都要修過（滑條點滿），不是學分加總。
-// 三個職業卡片的解鎖條件都會疊加這個條件。
-// ---------------------------------------------------------------
-const REQUIRED_COURSES = [
-  '微積分(一)', '線性代數(一)', '計算機概論',
-  '微積分(二)', '線性代數(二)', '程式設計',
-  '高等微積分(一)', '代數學(一)', '微分方程(一)',
-  '高等微積分(二)', '代數學(二)', '機率論',
-  '統計學', '複變數函數論(一)',
-];
-
-let selectedProfession = null; // profession id, or null
-const state = {};
-DATA.forEach(t => { state[t.id] = {}; t.groups.forEach(g => g.skills.forEach(([n]) => state[t.id][n]=0)); });
-
-// name -> tierId, for quick cross-tier lookup of any skill's current level
-const OWNER = {};
-DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n]) => { OWNER[n] = t.id; })));
-
-// name -> max level (= credit hours for this repurposed course-tracker)
-const MAXLEVEL = {};
-DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n, max]) => { MAXLEVEL[n] = max; })));
-
-// a course only counts as "completed" once its bar is fully filled
-function isCompleted(name){
-  return getLevel(name) >= (MAXLEVEL[name] || 0);
-}
-
-function ruleEarnedCredits(rule){
-  return rule.courses.reduce((sum, name) => sum + (isCompleted(name) ? (MAXLEVEL[name]||0) : 0), 0);
-}
-
-function ruleMet(rule){
-  return ruleEarnedCredits(rule) >= rule.min;
-}
-
-function requiredCompletedCredits(){
-  return REQUIRED_COURSES.reduce((sum, n) => sum + (isCompleted(n) ? (MAXLEVEL[n]||0) : 0), 0);
-}
-function requiredTotalCredits(){
-  return REQUIRED_COURSES.reduce((sum, n) => sum + (MAXLEVEL[n]||0), 0);
-}
-function requiredAllMet(){
-  return requiredCompletedCredits() === requiredTotalCredits();
-}
-
-function professionAchieved(prof){
-  return requiredAllMet() && prof.rules.every(ruleMet);
-}
-
-// name -> list of [dependentName, requiredLevel] that this skill unlocks for others
-// built automatically from each skill's own reqs list
-const DEPENDENTS = {};
-DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n,,reqs]) => {
-  (reqs||[]).forEach(([reqName, reqLevel]) => {
-    (DEPENDENTS[reqName] = DEPENDENTS[reqName] || []).push([n, reqLevel]);
-  });
-})));
-
-function getLevel(name){
-  const tierId = OWNER[name];
-  return tierId ? (state[tierId][name] || 0) : 0;
-}
-
-function reqsMet(reqs){
-  return (reqs||[]).every(([reqName, reqLevel]) => getLevel(reqName) >= reqLevel);
-}
-
-function reqsLabel(reqs){
-  return (reqs||[]).map(([reqName]) => reqName).join('、');
-}
-
-function reqsChecklistHtml(reqs){
-  return (reqs||[]).map(([reqName, reqLevel]) => {
-    const met = getLevel(reqName) >= reqLevel;
-    return `<div class="req-item ${met?'met':'unmet'}"><span class="mark">${met?'✓':'○'}</span><span>${reqName}</span></div>`;
-  }).join('');
-}
-
-// can we drop `name` below its current level without breaking something
-// that currently depends on it?
-function canDecrease(name){
-  const curLevel = getLevel(name);
-  const deps = DEPENDENTS[name] || [];
-  return deps.every(([depName, reqLevel]) => {
-    // if the dependent isn't invested at all, dropping below reqLevel is fine
-    if(getLevel(depName) === 0) return true;
-    // dependent has points: dropping below its required level would strand it
-    return curLevel - 1 >= reqLevel;
-  });
-}
-
-function tierUsed(tier){
-  return Object.values(state[tier.id]).reduce((a,b)=>a+b,0);
-}
-function tierPool(tier){ return tier.pool; }
-function totalPool(){ return DATA.reduce((a,t)=>a+t.pool,0); }
-function totalUsed(){ return DATA.reduce((a,t)=>a+tierUsed(t),0); }
-
-// which highlight (if any) a course should get for the currently selected profession
-function profHighlightFor(name){
-  if(!selectedProfession) return null;
-  const prof = PROFESSIONS.find(p => p.id === selectedProfession);
-  if(!prof) return null;
-  for(const rule of prof.rules){
-    if(rule.courses.includes(name)) return rule.kind; // 'required' | 'elective'
-  }
-  return null;
-}
-
-function renderProfessions(){
-  const root = document.getElementById('professions');
-  root.innerHTML = '';
-  const wrap = document.createElement('div');
-  wrap.className = 'professions';
-
-  PROFESSIONS.forEach(prof => {
-    const achieved = professionAchieved(prof);
-    const card = document.createElement('div');
-    card.className = 'prof-card' + (selectedProfession===prof.id?' selected':'') + (achieved?' unlocked':'');
-
-    const rulesHtml = prof.rules.map(rule => {
-      const earned = ruleEarnedCredits(rule);
-      const met = earned >= rule.min;
-      const pct = Math.min(100, Math.round(earned / rule.min * 100));
-      return `
-        <div class="prof-rule ${rule.kind}">
-          <div class="prof-rule-label ${met?'met':''}">
-            <span>${rule.label}</span>
-            <b>${earned} / ${rule.min}</b>
-          </div>
-          <div class="prof-bar"><i style="width:${pct}%"></i></div>
+      <details class="dialogue">
+        <summary>💬 與邱麗卿交談</summary>
+        <div class="dialogue-content">
+          <p><strong>邱麗卿：</strong>「冒險者，歡迎來到巧思館。」</p>
+          <p>「如果你的冒險和課務、教室有關，或你突然發現教室裡有點熱……那麼，你找對人了。」</p>
+          <p>「需要什麼幫助嗎？」</p>
+          <hr>
+          <p><strong>📚 詢問課務</strong></p>
+          <p>「課務是每位數學冒險者都可能遇到的事情。如果你對課務有疑問，可以來找我。」</p>
+          <p><strong>🏫 借教室</strong></p>
+          <p>「想找一個地方進行你的任務嗎？教室借用的事情，可以來找我。」</p>
+          <p><strong>❄️ 冷氣遙控</strong></p>
+          <p>「啊……你發現了巧思館最重要的神器之一。」</p>
+          <p>「沒錯，就是——<strong>❄️ 冷氣遙控器。</strong>」</p>
         </div>
-      `;
-    }).join('');
+      </details>
 
-    card.innerHTML = `
-      <div class="prof-head">
-        <div class="prof-name">${prof.name}</div>
-        ${achieved ? '<div class="prof-badge">已解鎖</div>' : ''}
+      <div class="npc-quest">
+        <strong>📜 NPC 任務提示</strong>
+        課務、教室與冷氣相關的事情，可以先來找邱麗卿。
       </div>
-      ${rulesHtml}
-    `;
+    </article>
 
-    card.addEventListener('click', () => {
-      selectedProfession = (selectedProfession === prof.id) ? null : prof.id;
-      renderAll();
-    });
+    <article class="npc">
+      <div class="npc-avatar">🧙‍♀️</div>
+      <div class="npc-role">學院管理者</div>
+      <h3>江怡潔</h3>
+      <p class="npc-intro">掌管系上硬體設施，也負責師培資格檢查。</p>
 
-    wrap.appendChild(card);
-  });
-
-  root.appendChild(wrap);
-}
-
-function renderRequiredBar(){
-  const root = document.getElementById('requiredBar');
-  const done = requiredCompletedCredits();
-  const total = requiredTotalCredits();
-  const met = done === total;
-  const pct = Math.round(done / total * 100);
-  root.innerHTML = `
-    <div class="required-panel ${met?'unlocked':''}">
-      <div class="required-head">
-        <div class="required-title">系必修</div>
-        <div class="required-count"><b>${done}</b> / ${total} 學分 ${met?'（已修畢）':''}</div>
+      <div class="npc-skills">
+        <span class="npc-skill">🖥️ 硬體設施</span>
+        <span class="npc-skill">🎓 師培資格</span>
       </div>
-      <div class="required-bar-track"><i style="width:${pct}%"></i></div>
+
+      <details class="dialogue">
+        <summary>💬 與江怡潔交談</summary>
+        <div class="dialogue-content">
+          <p><strong>江怡潔：</strong>「冒險者，你準備好探索巧思館了嗎？」</p>
+          <p>「這座學院裡，有許多你可以使用的設施。」</p>
+          <p>「如果你選擇走上師資培育之路，也別忘了確認自己是否符合相關資格。」</p>
+          <hr>
+          <p><strong>🖥️ 詢問系上設備</strong></p>
+          <p>「巧思館不只是上課的地方。這裡有電腦教室、研討空間，以及系上其他教學與行政空間。」</p>
+          <p><strong>🎓 詢問師培資格</strong></p>
+          <p>「如果你選擇成為數學教師，這條道路會有另外的要求。」</p>
+          <p>「師培相關的資格，需要仔細確認。」</p>
+          <p><strong>🗺️ 詢問冒險道路</strong></p>
+          <p>「在彰師數學，你不一定只有一條道路。」</p>
+          <p>「數學、統計、資訊，以及師資培育，都可能成為你冒險的一部分。」</p>
+        </div>
+      </details>
+
+      <div class="npc-quest">
+        <strong>📜 NPC 任務提示</strong>
+        想了解系上硬體設施，或確認師培資格，可以向江怡潔詢問。
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title">
+    <div class="chapter">CHAPTER II</div>
+    <h2>三條主要道路</h2>
+    <p>你不需要現在就決定自己的終點。</p>
+  </div>
+
+  <div class="paths">
+    <div class="path math" data-career="math">
+      <div class="path-icon">📐</div><h3>數學之路</h3>
+      <p>從基礎數學開始，逐步探索更深層的數學世界。</p>
+      <span class="path-tag">● MATHEMATICS</span><div class="path-more">代表系友 4 人　→</div>
     </div>
-  `;
-}
+    <div class="path stat" data-career="stat">
+      <div class="path-icon">📊</div><h3>統計之路</h3>
+      <p>面對資料與不確定性，從機率與統計建立分析能力。</p>
+      <span class="path-tag">● STATISTICS</span><div class="path-more">代表系友 2 人　→</div>
+    </div>
+    <div class="path info" data-career="info">
+      <div class="path-icon">💻</div><h3>資訊之路</h3>
+      <p>讓數學與計算相遇，探索程式、資料與演算法。</p>
+      <span class="path-tag">● COMPUTER SCIENCE</span><div class="path-more">代表系友 3 人　→</div>
+    </div>
+  </div>
+</section>
 
-function renderAll(){
-  renderRequiredBar();
-  renderProfessions();
 
-  const root = document.getElementById('tiers');
-  root.innerHTML = '';
-  DATA.forEach(tier => {
-    const used = tierUsed(tier);
-    const tierEl = document.createElement('div');
-    tierEl.className = 'tier';
+<div class="career-modal" id="careerModal" aria-hidden="true">
+  <div class="career-dialog" role="dialog" aria-modal="true">
+    <button class="career-close" id="careerClose" aria-label="關閉">×</button>
+    <div class="career-head"><div class="career-icon" id="careerIcon"></div><h3 id="careerTitle"></h3><p id="careerIntro"></p></div>
+    <div class="career-legend"><span><i style="background:var(--math)"></i>數學</span><span><i style="background:var(--stat)"></i>統計</span><span><i style="background:var(--info)"></i>資訊</span></div>
+    <div class="career-section-title">代表系友</div><div class="alumni-grid" id="alumniGrid"></div><div class="career-section-title">台灣就業市場</div><div class="job-grid" id="jobGrid"></div><div class="market-note" id="marketNote"></div><div class="career-section-title">海外就業市場</div><div class="job-grid" id="overseasGrid"></div><div class="market-note" id="overseasNote"></div>
+    <div class="career-note">※ 薪資採保守參考值：台灣職涯優先使用 104 的 P25；美國使用 BLS 最低 10% 薪資門檻；英國／新加坡使用官方職涯頁面的 Starter／區間下限。海外薪資依 2026-09-08 匯率換算為新台幣，未做稅負與購買力調整。系友薪資仍為依職稱與產業推估，非本人實際薪資。</div>
+  </div>
+</div>
 
-    const head = document.createElement('div');
-    head.className = 'tier-head';
-    head.innerHTML = `
-      <div><span class="name">${tier.label}</span><span class="job">${tier.job}</span></div>
-      <div class="pool">已修 <b>${used}</b></div>
-    `;
-    tierEl.appendChild(head);
+<section class="section">
+  <div class="section-title">
+    <div class="chapter">CHAPTER III</div>
+    <h2>成為冒險者・建立你的能力</h2>
+    <p>你的道路還沒有被決定，現在輪到你做選擇。</p>
+  </div>
 
-    tier.groups.forEach(group => {
-      if(group.name){
-        const gl = document.createElement('div');
-        gl.className = 'group-label';
-        gl.textContent = group.name;
-        tierEl.appendChild(gl);
-      }
-      const grid = document.createElement('div');
-      grid.className = 'grid';
-      group.skills.forEach(([name, max, reqs]) => {
-        const lv = state[tier.id][name];
-        const locked = lv === 0 && !reqsMet(reqs);
-        const highlight = profHighlightFor(name); // null | 'required' | 'elective'
-        const node = document.createElement('div');
-        node.className = 'node'
-          + (lv>0?' filled':'')
-          + (lv>=max?' maxed':'')
-          + (locked?' locked':'')
-          + (highlight==='required' ? ' prof-required' : '')
-          + (highlight==='elective' ? ' prof-elective' : '');
-        if(locked) node.title = `需求：${reqsLabel(reqs)}`;
-        node.innerHTML = `
-          <div class="node-top">
-            <div class="node-name">${name}${locked?' <span class="lock">🔒</span>':''}</div>
-            <div class="node-lv">${lv}/${max}</div>
-          </div>
-          ${locked ? `<div class="req-note"><div class="req-note-title">需修習</div>${reqsChecklistHtml(reqs)}</div>` : ''}
-          <div class="bar">${Array.from({length:max}).map((_,i)=>`<i class="${i<lv?'on':''}"></i>`).join('')}</div>
-        `;
-        node.addEventListener('click', () => {
-          if(state[tier.id][name] < max && reqsMet(reqs)){
-            state[tier.id][name]++;
-            renderAll();
-          }
-        });
-        node.addEventListener('contextmenu', (e) => {
-          e.preventDefault();
-          if(state[tier.id][name] > 0 && canDecrease(name)){
-            state[tier.id][name]--;
-            renderAll();
-          }
-        });
-        grid.appendChild(node);
-      });
-      tierEl.appendChild(grid);
-    });
+  <div class="player">
+    <div class="player-card adventurer-simulator-card">
+      <div class="player-avatar">🧑‍🎓</div>
+      <h3>新進冒險者</h3>
+      <p>你剛剛進入彰師數學宇宙。</p>
+      <p>目前沒有固定職業。你的能力將由接下來的選擇逐漸形成。</p>
 
-    root.appendChild(tierEl);
-  });
+      <div class="simulator-divider"></div>
 
-  document.getElementById('totalLeft').textContent = totalUsed();
-}
+      <div class="simulator-icon">🎮</div>
+      <h4>課程技能模擬器</h4>
+      <p>選擇你已經修習的課程，看哪些道路將因此被解鎖。</p>
+      <a href="skills_sim.html" class="enter-button" id="skillSimulatorLink">進入技能模擬器</a>
+    </div>
+  </div>
+</section>
 
-document.getElementById('resetBtn').addEventListener('click', () => {
-  DATA.forEach(t => t.groups.forEach(g => g.skills.forEach(([n]) => state[t.id][n]=0)));
-  renderAll();
-});
+<section class="section">
+  <div class="ending">
+    <div class="ending-symbol">⭐</div>
+    <h2>你的數學冒險，才正要開始。</h2>
+    <p>沒有人替你決定最後會走到哪裡。</p>
+    <p>每一次選擇，都會慢慢形成你的道路。</p>
+    <p><strong>歡迎來到彰師數學宇宙。</strong></p>
+  </div>
+</section>
 
-document.getElementById('fillBtn').addEventListener('click', () => {
-  // multiple passes: some skills unlock only after a prerequisite is raised,
-  // so keep sweeping until a full pass makes no further progress
-  let changed = true;
-  while(changed){
-    changed = false;
-    DATA.forEach(tier => {
-      tier.groups.forEach(group => {
-        group.skills.forEach(([name, max, reqs]) => {
-          while(state[tier.id][name] < max && reqsMet(reqs)){
-            state[tier.id][name]++;
-            changed = true;
-          }
-        });
-      });
-    });
+<script>
+const SPACE_DATA = {
+  computer:{
+    icon:"💻",title:"電腦教室",
+    content:`
+      <p>數學不只存在於紙與筆之間。</p>
+      <p>在這裡，數學可以與程式、計算與資訊技術相遇。</p>
+      <div class="dialogue-line">💡 <strong>冒險提示：</strong>當你開始讓電腦替你計算，你也開始踏入數學與資訊交會的領域。</div>
+    `
+  },
+  seminar:{
+    icon:"🔬",title:"研討室",
+    content:`
+      <p>這裡是討論、交流與研究的空間。</p>
+      <p>一個數學問題，往往不只存在一種思考方式。與其他人討論，有時候就是發現新道路的開始。</p>
+      <div class="dialogue-line">🧩 <strong>冒險提示：</strong>如果你卡在一個問題上，不妨把問題說給另一個人聽。</div>
+    `
+  },
+  office:{
+    icon:"🧑‍🏫",title:"教師研究室",
+    content:`
+      <p>這裡是教授與教師進行教學、研究與學生交流的重要場所。</p>
+      <p>在彰師數學宇宙裡，教師研究室也是尋求學術方向、課業問題與研究想法的重要據點。</p>
+      <div class="dialogue-line">🧭 <strong>冒險提示：</strong>遇到不知道該往哪裡走的時候，找一位願意聽你說明問題的人，往往比獨自摸索更快找到方向。</div>
+    `
+  },
+  department:{
+    icon:"🏢",title:"系辦公室",
+    content:`
+      <p>這裡是巧思館裡處理系務與學生事務的重要場所。</p>
+      <p>兩位重要的 NPC 駐守於此。如果你的冒險遇到課務、教室、設備或師培相關問題，可以來這裡尋求協助。</p>
+      <div class="dialogue-line">👩‍💼 <strong>邱麗卿</strong><br>課務、借教室、冷氣遙控。</div>
+      <div class="dialogue-line">👩‍💼 <strong>江怡潔</strong><br>系上硬體設施、師培資格檢查。</div>
+      <div class="dialogue-line">📜 <strong>NPC 任務提示：</strong>下方可以進一步與兩位 NPC 交談。</div>
+    `
   }
-  renderAll();
+};
+
+const spaceModal=document.getElementById("spaceModal");
+const spaceClose=document.getElementById("spaceClose");
+const spaceIcon=document.getElementById("spaceIcon");
+const spaceTitle=document.getElementById("spaceTitle");
+const spaceContent=document.getElementById("spaceContent");
+
+document.querySelectorAll(".place").forEach(place=>{
+  place.addEventListener("click",()=>{
+    const data=SPACE_DATA[place.dataset.space];
+    if(!data)return;
+    spaceIcon.textContent=data.icon;
+    spaceTitle.textContent=data.title;
+    spaceContent.innerHTML=data.content;
+    spaceModal.classList.add("show");
+    spaceModal.setAttribute("aria-hidden","false");
+  });
 });
 
-renderAll();
+function closeSpaceModal(){
+  spaceModal.classList.remove("show");
+  spaceModal.setAttribute("aria-hidden","true");
+}
+
+spaceClose.addEventListener("click",closeSpaceModal);
+spaceModal.addEventListener("click",e=>{
+  if(e.target===spaceModal)closeSpaceModal();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){closeSpaceModal(); if(typeof closeCareer==="function")closeCareer();}
+});
+
+
+const CAREER_DATA={
+  math:{icon:"📐",title:"數學之路",intro:"理論 · 分析 · 建模 · 教育",people:[
+    {name:"游鎮村",org:"南開科技大學",role:"教授",spectrum:"math",label:"數學",salary:"約 NT$120 萬／年"},
+    {name:"陳瑋岳",org:"國立臺中文華高中",role:"教師",spectrum:"math",label:"數學",salary:"約 NT$80 萬／年"},
+    {name:"林元貴",org:"同德高中",role:"校長",spectrum:"math",label:"數學",salary:"約 NT$120 萬／年"},
+    {name:"蔡瓊玉",org:"國立臺南家齊高中",role:"校長",spectrum:"math",label:"數學",salary:"約 NT$130 萬／年"}
+  ],jobs:[
+    {name:"中學數學教師",desc:"數學專業、教材轉化與教學實務。",spectrum:"math",label:"數學",metric:"公教薪級制／依年資與加給"},
+    {name:"大學教師／研究員",desc:"理論研究、數學建模、論文與高等教育。",spectrum:"math",label:"數學",metric:"依職級、年資與研究單位"},
+    {name:"精算／風險分析",desc:"機率模型、統計推論、金融與風險定價。",spectrum:"math-stat",label:"數學 ＋ 統計",metric:"金融／保險專業職涯"},
+    {name:"演算法／最佳化",desc:"離散數學、最佳化、演算法與程式實作。",spectrum:"math-info",label:"數學 ＋ 資訊",metric:"約 NT$72 萬／年",count:"104 2026：P25 約 6.0 萬／月"},
+    {name:"AI／科學計算研究",desc:"數學模型、統計學習、數值方法與程式。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",metric:"依 AI／研發職務而異"}
+  ],marketNote:"數學能力通常是底層能力；進入產業後，常與統計、資訊形成跨域職涯。",overseasJobs:[
+    {name:"數學家（Mathematician）",desc:"研究、建模、計算與高階數學問題求解。",spectrum:"math",label:"數學",market:"美國",metric:"約 NT$219 萬／年",count:"BLS 2025：最低 10% 薪資門檻"},
+    {name:"精算師（Actuary）",desc:"機率、統計與金融理論結合，用於風險定價與保險。",spectrum:"math-stat",label:"數學 ＋ 統計",market:"美國",metric:"約 NT$249 萬／年",count:"BLS 2025：最低 10% 薪資門檻"},
+    {name:"運籌分析師（Operations Research Analyst）",desc:"以最佳化、數學模型與資料分析改善決策與營運。",spectrum:"math-stat",label:"數學 ＋ 統計",market:"美國",metric:"約 NT$181 萬／年",count:"BLS 2025：最低 10% 薪資門檻"},
+    {name:"量化交易員（Quantitative Trader）",desc:"數學模型、統計分析與程式交易的高度跨域職涯。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",market:"新加坡",metric:"約 NT$147 萬／年",count:"新加坡政府 Discover NYC 2026：區間下限"}
+  ],overseasNote:"海外數學職涯常直接連到精算、OR、Quant、Data Science 與科技研發；跨域能力通常會提高職涯選擇與薪資上限。"},
+  stat:{icon:"📊",title:"統計之路",intro:"機率 · 統計 · 資料分析 · 跨域應用",people:[
+    {name:"曾耀霆",org:"SAS",role:"講師",spectrum:"stat-info",label:"統計 ＋ 資訊",salary:"約 NT$100 萬／年"},
+    {name:"廖世傑",org:"中國醫藥大學醫學系",role:"副教授",spectrum:"math-stat",label:"數學 ＋ 統計",salary:"約 NT$120 萬／年"}
+  ],jobs:[
+    {name:"資料分析師",desc:"資料整理、統計分析、SQL／Python 與商業解讀。",spectrum:"stat-info",label:"統計 ＋ 資訊",metric:"約 NT$58 萬／年",count:"104 2026：P25 約 4.8 萬／月"},
+    {name:"資料科學家",desc:"統計建模、機器學習、程式與領域知識。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",metric:"約 NT$74 萬／年",count:"104 2026：P25 約 6.2 萬／月"},
+    {name:"商業分析師",desc:"統計分析、商業問題定義、資料視覺化與決策。",spectrum:"stat-info",label:"統計 ＋ 資訊",metric:"約 NT$72 萬／年",count:"104 2026：P25 約 6.0 萬／月"},
+    {name:"統計／生物統計",desc:"抽樣、推論、實驗設計；生醫領域常需跨域知識。",spectrum:"math-stat",label:"數學 ＋ 統計",metric:"依產業與研究單位而異"},
+    {name:"機器學習工程師",desc:"機率統計、線性代數、模型訓練與軟體實作。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",metric:"約 NT$64 萬／年",count:"104 2026：P25 約 5.3 萬／月"}
+  ],marketNote:"統計路線進入 Data／AI 市場後，程式能力幾乎成為標準配備；越往模型研發走，數學比重也越高。",overseasJobs:[
+    {name:"統計師（Statistician）",desc:"統計建模、推論、調查與跨產業資料分析。",spectrum:"math-stat",label:"數學 ＋ 統計",market:"美國",metric:"約 NT$203 萬／年",count:"BLS 2025：最低 10% 薪資門檻"},
+    {name:"資料科學家（Data Scientist）",desc:"統計建模、機器學習與程式分析大型資料。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",market:"美國",metric:"約 NT$213 萬／年",count:"BLS 2025：最低 10% 薪資門檻；2025–35 成長 35%"},
+    {name:"資料科學家（Data Scientist）",desc:"統計、機器學習、程式與商業問題解決。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",market:"新加坡",metric:"約 NT$192 萬／年",count:"新加坡政府 Discover NYC 2026：區間下限"},
+    {name:"統計師（Statistician）",desc:"統計方法、資料分析與 R／Python 等工具。",spectrum:"stat-info",label:"統計 ＋ 資訊",market:"新加坡",metric:"約 NT$105 萬／年",count:"新加坡政府 Discover NYC 2026：區間下限"}
+  ],overseasNote:"海外 Data／Statistics 市場對程式能力要求很高；美國與新加坡的官方職涯資料都把 Mathematics / Statistics / Computer Science 視為常見背景。"},
+  info:{icon:"💻",title:"資訊之路",intro:"程式 · 演算法 · AI · 科學計算",people:[
+    {name:"王正婷",org:"日月光",role:"人工智慧技術部主任工程師",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",salary:"約 NT$150 萬／年"},
+    {name:"蔡東佐",org:"國立臺灣海洋大學資訊工程系",role:"助理教授",spectrum:"math-info",label:"數學 ＋ 資訊",salary:"約 NT$100 萬／年"},
+    {name:"連偉成",org:"高雄海洋大學資管系",role:"副教授",spectrum:"math-info",label:"數學 ＋ 資訊",salary:"約 NT$120 萬／年"}
+  ],jobs:[
+    {name:"軟體工程師",desc:"程式設計、系統開發、軟體工程與問題解決。",spectrum:"info",label:"資訊",metric:"約 NT$60 萬／年",count:"104 2026：P25 約 5.0 萬／月"},
+    {name:"資料工程師",desc:"資料庫、資料管線、雲端與大量資料處理。",spectrum:"info",label:"資訊",metric:"約 NT$64 萬／年",count:"104 2026：P25 約 5.3 萬／月"},
+    {name:"AI 工程師",desc:"模型訓練、資料處理、數學基礎與系統部署。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",metric:"約 NT$70 萬／年",count:"104 2026：P25 約 5.8 萬／月"},
+    {name:"演算法工程師",desc:"數學建模、演算法設計、最佳化與高效程式。",spectrum:"math-info",label:"數學 ＋ 資訊",metric:"約 NT$72 萬／年",count:"104 2026：P25 約 6.0 萬／月"},
+    {name:"機器學習工程師",desc:"機率統計、線性代數、ML 模型與工程部署。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",metric:"約 NT$64 萬／年",count:"104 2026：P25 約 5.3 萬／月"}
+  ],marketNote:"資訊職涯從純軟體開發到 AI／ML，跨域程度差異很大；越接近演算法、模型與研發，數學與統計能力越重要。",overseasJobs:[
+    {name:"軟體開發工程師（Software Developer）",desc:"軟體架構、系統開發與程式工程。",spectrum:"info",label:"資訊",market:"美國",metric:"約 NT$261 萬／年",count:"BLS 2025：最低 10% 薪資門檻"},
+    {name:"資料科學家（Data Scientist）",desc:"資料、模型、程式與機器學習整合。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",market:"美國",metric:"約 NT$213 萬／年",count:"BLS 2025：最低 10% 薪資門檻"},
+    {name:"AI／機器學習工程師（AI/ML Engineer）",desc:"機器學習、統計分析、演算法與工程部署。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",market:"新加坡",metric:"約 NT$180 萬／年",count:"新加坡政府 Discover NYC 2026：區間下限"},
+    {name:"資料科學家（Data Scientist）",desc:"軟體、AI、ML 與資料分析的跨領域職涯。",spectrum:"all",label:"數學 ＋ 統計 ＋ 資訊",market:"英國",metric:"約 NT$137 萬／年",count:"英國 National Careers Service：Starter 薪資"}
+  ],overseasNote:"海外資訊市場的薪資上限高，但越接近 AI、ML、Data Science 與演算法，越需要數學與統計；純程式開發則以資訊能力為核心。"}
+};
+const careerModal=document.getElementById("careerModal"),careerClose=document.getElementById("careerClose"),alumniGrid=document.getElementById("alumniGrid"),jobGrid=document.getElementById("jobGrid"),marketNote=document.getElementById("marketNote"),overseasGrid=document.getElementById("overseasGrid"),overseasNote=document.getElementById("overseasNote");
+function openCareer(key){const d=CAREER_DATA[key];if(!d)return;document.getElementById("careerIcon").textContent=d.icon;document.getElementById("careerTitle").textContent=d.title;document.getElementById("careerIntro").textContent=d.intro;alumniGrid.innerHTML=d.people.map(p=>`<article class="alumni-card"><div class="alumni-name">${p.name}</div><div class="alumni-org">${p.org}</div><div class="alumni-role">${p.role}</div><div class="spectrum ${p.spectrum}" title="${p.label}" aria-label="${p.label}"></div><div class="salary">職涯市場年薪估計<b>${p.salary}</b></div></article>`).join("");jobGrid.innerHTML=d.jobs.map(j=>`<article class="job-card"><div class="job-name">${j.name}</div><div class="job-desc">${j.desc}</div><div class="spectrum ${j.spectrum}" title="${j.label}" aria-label="${j.label}"></div><div class="job-metric">台灣市場<b>${j.metric}</b>${j.count?`<div class="job-count">${j.count}</div>`:""}</div></article>`).join("");marketNote.textContent=d.marketNote;overseasGrid.innerHTML=(d.overseasJobs||[]).map(j=>`<article class="job-card"><div class="job-name">${j.name}</div><div class="job-desc">${j.desc}</div><div class="spectrum ${j.spectrum}" title="${j.label}" aria-label="${j.label}"></div><div class="job-metric">${j.market}<b>${j.metric}</b>${j.count?`<div class="job-count">${j.count}</div>`:""}</div></article>`).join("");overseasNote.textContent=d.overseasNote||"";careerModal.classList.add("show");careerModal.setAttribute("aria-hidden","false")}
+function closeCareer(){careerModal.classList.remove("show");careerModal.setAttribute("aria-hidden","true")}
+document.querySelectorAll(".path[data-career]").forEach(el=>el.addEventListener("click",()=>openCareer(el.dataset.career)));
+careerClose.addEventListener("click",closeCareer);careerModal.addEventListener("click",e=>{if(e.target===careerModal)closeCareer()});
+
+// 技能模擬器入口：一般左鍵可進入；右鍵則直接前往 skills_sim.html，
+// 並阻止瀏覽器顯示預設的右鍵選單。
+const skillSimulatorLink=document.getElementById("skillSimulatorLink");
+skillSimulatorLink.addEventListener("contextmenu",e=>{
+  e.preventDefault();
+  window.location.href="skills_sim.html";
+});
 </script>
+
 </body>
 </html>
